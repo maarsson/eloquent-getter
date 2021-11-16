@@ -1,0 +1,21 @@
+{
+    "name": "maarsson/laravel-repository",
+    "description": "Repository pattern for Laravel",
+    "type": "package",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "VMaarsson",
+            "email": "viktor@maarsson.se"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0",
+        "laravel/framework": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Maarsson\\Repository\\": "src"
+        }
+    }
+}
