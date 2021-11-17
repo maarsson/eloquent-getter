@@ -2,8 +2,8 @@
 
 namespace Maarsson\Repository\Repositories;
 
-use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 
 abstract class BaseRepository implements EloquentRepositoryInterface
 {

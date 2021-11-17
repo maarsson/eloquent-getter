@@ -3,7 +3,6 @@
 namespace Maarsson\Repository\Interfaces;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
 
 /**
  * This interface describes an eloquent repository interface.
