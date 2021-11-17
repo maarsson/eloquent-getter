@@ -16,6 +16,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        $this->registerPublishing();
     }
 
     /**
@@ -68,5 +69,19 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         $this->commands(MakeRepositoryCommand::class);
+    }
+
+    /**
+     * Register the package's publishable resources.
+     *
+     * @return void
+     */
+    protected function registerPublishing()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->publishes([
+                __DIR__ . '/../config/repository.php' => $this->app->configPath('repository.php'),
+            ], 'repository-config');
+        }
     }
 }
