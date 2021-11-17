@@ -3,6 +3,7 @@
 namespace Maarsson\Repository;
 
 use Illuminate\Support\ServiceProvider;
+use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 use Maarsson\Repository\Repositories\BaseRepository;
 
@@ -26,6 +27,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->configure();
         $this->registerBindings();
+        $this->registerCommands();
     }
 
     /**
@@ -56,5 +58,15 @@ class RepositoryServiceProvider extends ServiceProvider
                 'App\\Repositories\\' . $model . 'Repository',
             );
         }
+    }
+
+    /**
+     * Register the package commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        $this->commands(MakeRepositoryCommand::class);
     }
 }
