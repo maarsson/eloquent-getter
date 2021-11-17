@@ -1,0 +1,8 @@
+<?php
+
+namespace App\Interfaces;
+
+interface {{modelName}}RepositoryInterface
+{
+    // here can you place custom methods only for this repository
+}
