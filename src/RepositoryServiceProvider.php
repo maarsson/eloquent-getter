@@ -25,6 +25,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->configure();
+        $this->registerBindings();
     }
 
     /**
@@ -38,5 +39,22 @@ class RepositoryServiceProvider extends ServiceProvider
             __DIR__ . '/../config/repository.php',
             'repository'
         );
+    }
+
+    /**
+     * Bind interfaces and repositories.
+     *
+     * @return void
+     */
+    protected function registerBindings()
+    {
+        $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
+
+        foreach (config('repository.models') as $model) {
+            $this->app->bind(
+                'App\\Interfaces\\' . $model . 'RepositoryInterface',
+                'App\\Repositories\\' . $model . 'Repository',
+            );
+        }
     }
 }
