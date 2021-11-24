@@ -2,6 +2,7 @@
 
 namespace Maarsson\Repository\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 
@@ -20,6 +21,21 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function __construct(Model $model)
     {
         $this->model = $model;
+    }
+
+    /**
+     * Gets all entity.
+     * Returned columns can be filtered
+     *
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function all(string ...$columns): Collection
+    {
+        return $this->model->all(
+            empty($columns) ? '*' : $columns
+        );
     }
 
     /**

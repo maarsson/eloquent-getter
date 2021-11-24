@@ -2,6 +2,7 @@
 
 namespace Maarsson\Repository\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,6 +10,16 @@ use Illuminate\Database\Eloquent\Model;
  */
 interface EloquentRepositoryInterface
 {
+    /**
+     * Gets all entity.
+     * Returned columns can be filtered
+     *
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function all(string ...$columns): Collection;
+
     /**
      * Creates a new entity.
      *
