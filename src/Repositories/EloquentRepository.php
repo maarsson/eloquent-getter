@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 use Maarsson\Repository\Traits\HasModelEvents;
 
-abstract class BaseRepository implements EloquentRepositoryInterface
+abstract class EloquentRepository implements EloquentRepositoryInterface
 {
     use HasModelEvents;
 

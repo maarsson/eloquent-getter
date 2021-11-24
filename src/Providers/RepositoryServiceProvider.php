@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
 use Maarsson\Repository\Providers\EventServiceProvider;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
-use Maarsson\Repository\Repositories\BaseRepository;
+use Maarsson\Repository\Repositories\EloquentRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -63,7 +63,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected function registerBindings()
     {
-        $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
+        $this->app->bind(EloquentRepositoryInterface::class, EloquentRepository::class);
 
         foreach (config('repository.models') as $model) {
             $this->app->bind(

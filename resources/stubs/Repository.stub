@@ -4,9 +4,9 @@ namespace App\Repositories;
 
 use App\Models\{{modelName}};
 use App\Interfaces\{{modelName}}RepositoryInterface;
-use Maarsson\Repository\Repositories\BaseRepository;
+use Maarsson\Repository\Repositories\EloquentRepository;
 
-class {{modelName}}Repository extends BaseRepository implements {{modelName}}RepositoryInterface
+class {{modelName}}Repository extends EloquentRepository implements {{modelName}}RepositoryInterface
 {
 
    public function __construct({{modelName}} $model)
