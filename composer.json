@@ -21,7 +21,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Maarsson\\Repository\\RepositoryServiceProvider"
+                "Maarsson\\Repository\\Providers\\RepositoryServiceProvider"
             ]
         }
     }

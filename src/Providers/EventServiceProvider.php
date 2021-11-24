@@ -1,6 +1,6 @@
 <?php
 
-namespace Maarsson\Repository;
+namespace Maarsson\Repository\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Maarsson\Repository\Traits\HasModelEvents;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Maarsson\Repository;
+namespace Maarsson\Repository\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
