@@ -27,7 +27,7 @@ This package adds and extendable repository pattern to your Laravel project.
 
         public function __construct(YourModelRepositoryInterface $repository)
         {
-        $this->repository = $repository;
+            $this->repository = $repository;
         }
     }
     ```
@@ -35,19 +35,38 @@ This package adds and extendable repository pattern to your Laravel project.
 
 ## Methods
 
+#### Retrieving entities
+
+Retrieving all entities from the database
+```php
+$collection = $this->repository->all();
+```
+
+Retrieving entity by ID
+```php
+$collection = $this->repository->find(3);
+```
+
+Retrieving entity by a specific column
+```php
+$collection = $this->repository->findBy('title', 'Music');
+```
+
+You can also specify which columns to be fetched
+```php
+$collection = $this->repository->all('id', 'title');
+$collection = $this->repository->find(3, 'id', 'title');
+$collection = $this->repository->findBy('title', 'Music', 'id', 'title');
+```
+
+
 #### Creating an entity
 
 ```php
 $entity = $this->repository->create([
-    'property_1' => 'value1',
-    'property_2' => 'value2',
+    'title' => 'Music',
+    'price' => 12.9,
 ]);
-```
-
-#### Retrieving an entity by its ID
-
-```php
-$entity = $this->repository->find(1);
 ```
 
 
