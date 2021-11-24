@@ -53,4 +53,15 @@ interface EloquentRepositoryInterface
      * @return Illuminate\Database\Eloquent\Model
      */
     public function find($id, string ...$columns): ?Model;
+
+    /**
+     * Finds an entity by custom column.
+     * Returned columns can be filtered
+     *
+     * @param mixed $id
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model|Illuminate\Support\Collection
+     */
+    public function findBy(string $column, $value = null, string ...$columns): ?Collection;
 }

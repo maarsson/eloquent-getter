@@ -86,4 +86,24 @@ abstract class BaseRepository implements EloquentRepositoryInterface
             $this->columns($columns)
         );
     }
+
+    /**
+     * Finds an entity by custom column.
+     * Returned columns can be filtered
+     *
+     * @param mixed $id
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function findBy(string $column, $value = null, string ...$columns): ?Collection
+    {
+        return $this->model()->where(
+            $column,
+            $value
+        )
+        ->get(
+            $this->columns($columns)
+        );
+    }
 }
