@@ -4,7 +4,7 @@ namespace Maarsson\Repository\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
-use Maarsson\Repository\EventServiceProvider;
+use Maarsson\Repository\Providers\EventServiceProvider;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 use Maarsson\Repository\Repositories\BaseRepository;
 
@@ -41,7 +41,7 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/repository.php',
+            __DIR__ . '/../../config/repository.php',
             'repository'
         );
     }
@@ -92,7 +92,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/repository.php' => $this->app->configPath('repository.php'),
+                __DIR__ . '/../../config/repository.php' => $this->app->configPath('repository.php'),
             ], 'repository-config');
         }
     }
