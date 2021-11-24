@@ -50,7 +50,7 @@ interface EloquentRepositoryInterface
      * @param mixed $id
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model|Illuminate\Support\Collection
+     * @return Illuminate\Database\Eloquent\Model
      */
     public function find($id, string ...$columns): ?Model;
 }
