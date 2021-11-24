@@ -34,6 +34,16 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Return with column filter array
+     *
+     * @return array
+     */
+    public function columns(array $columns = []): array
+    {
+        return empty($columns) ? ['*'] : $columns;
+    }
+
+    /**
      * Gets all entity.
      * Returned columns can be filtered
      *
@@ -44,7 +54,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function all(string ...$columns): Collection
     {
         return $this->model()->all(
-            empty($columns) ? '*' : $columns
+            $this->columns($columns)
         );
     }
 

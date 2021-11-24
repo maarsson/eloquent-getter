@@ -18,6 +18,13 @@ interface EloquentRepositoryInterface
     public function model(): Model;
 
     /**
+     * Return with column filter array
+     *
+     * @return array
+     */
+    public function columns(array $columns = []): array;
+
+    /**
      * Gets all entity.
      * Returned columns can be filtered
      *
