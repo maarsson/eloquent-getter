@@ -5,9 +5,12 @@ namespace Maarsson\Repository\Repositories;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
+use Maarsson\Repository\Traits\HasModelEvents;
 
 abstract class BaseRepository implements EloquentRepositoryInterface
 {
+    use HasModelEvents;
+
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
@@ -21,6 +24,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     public function __construct(Model $model)
     {
         $this->model = $model;
+        $this->setEventsForModel($this->model);
     }
 
     /**
@@ -67,7 +71,13 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     public function create(array $attributes): Model
     {
-        return $this->model()->create($attributes);
+        event(new $this->events['IsCreating']($attributes));
+
+        $model = $this->model()->create($attributes);
+
+        event(new $this->events['WasCreated']($model, $attributes));
+
+        return $model;
     }
 
     /**

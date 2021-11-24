@@ -4,6 +4,7 @@ namespace Maarsson\Repository;
 
 use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
+use Maarsson\Repository\EventServiceProvider;
 use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
 use Maarsson\Repository\Repositories\BaseRepository;
 
@@ -27,6 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->configure();
+        $this->registerProviders();
         $this->registerBindings();
         $this->registerCommands();
     }
@@ -42,6 +44,16 @@ class RepositoryServiceProvider extends ServiceProvider
             __DIR__ . '/../config/repository.php',
             'repository'
         );
+    }
+
+    /**
+     * Register package providers.
+     *
+     * @return void
+     */
+    protected function registerProviders()
+    {
+        $this->app->register(EventServiceProvider::class);
     }
 
     /**
