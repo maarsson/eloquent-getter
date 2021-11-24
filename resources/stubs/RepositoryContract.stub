@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Interfaces;
+namespace App\Contracts;
 
-interface {{modelName}}RepositoryInterface
+interface {{modelName}}RepositoryContract
 {
     // here can you place custom methods only for this repository
 }

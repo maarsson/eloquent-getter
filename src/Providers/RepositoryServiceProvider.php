@@ -5,7 +5,7 @@ namespace Maarsson\Repository\Providers;
 use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
 use Maarsson\Repository\Providers\EventServiceProvider;
-use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
+use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Repositories\EloquentRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -63,11 +63,11 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected function registerBindings()
     {
-        $this->app->bind(EloquentRepositoryInterface::class, EloquentRepository::class);
+        $this->app->bind(EloquentRepositoryContract::class, EloquentRepository::class);
 
         foreach (config('repository.models') as $model) {
             $this->app->bind(
-                'App\\Interfaces\\' . $model . 'RepositoryInterface',
+                'App\\Contracts\\' . $model . 'RepositoryContract',
                 'App\\Repositories\\' . $model . 'Repository',
             );
         }

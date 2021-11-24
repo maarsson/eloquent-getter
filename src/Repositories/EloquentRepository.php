@@ -4,10 +4,10 @@ namespace Maarsson\Repository\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
+use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Traits\HasModelEvents;
 
-abstract class EloquentRepository implements EloquentRepositoryInterface
+abstract class EloquentRepository implements EloquentRepositoryContract
 {
     use HasModelEvents;
 

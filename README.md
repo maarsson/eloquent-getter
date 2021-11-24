@@ -6,12 +6,12 @@ This package adds and extendable repository pattern to your Laravel project.
 
 1. Add package to your Laravel project: `composer require maarsson/laravel-repository`
 2. Publish config file `php aritsan vendor:publish --tag=repository-config`
-3. Create required folders: `mkdir app/Interfaces && mkdir app/Repositories`
+3. Create required folders: `mkdir app/Contracts && mkdir app/Repositories`
 
 ## Usage
 
 1. Create repository to your existing Eloquent model: `php artisan make:repository 'YourModel'`. This will create:
-    - a repository interface in `App/Interfaces` folder,
+    - a repository interface in `App/Contracts` folder,
     - a repository in `App/Repositories` folder,
     - events in `App/Listeners` folder,
     - event listeners in `App/Listeners` folder.
@@ -25,13 +25,13 @@ This package adds and extendable repository pattern to your Laravel project.
 
 3. Use dependency injection in your controller:
     ```php
-    use App\Interfaces\YourModelRepositoryInterface;
+    use App\Contracts\YourModelRepositoryContract;
 
     class TestController extends Controller
     {
         private $repository;
 
-        public function __construct(YourModelRepositoryInterface $repository)
+        public function __construct(YourModelRepositoryContract $repository)
         {
             $this->repository = $repository;
         }

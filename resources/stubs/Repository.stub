@@ -3,10 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\{{modelName}};
-use App\Interfaces\{{modelName}}RepositoryInterface;
+use App\Contracts\{{modelName}}RepositoryContract;
 use Maarsson\Repository\Repositories\EloquentRepository;
 
-class {{modelName}}Repository extends EloquentRepository implements {{modelName}}RepositoryInterface
+class {{modelName}}Repository extends EloquentRepository implements {{modelName}}RepositoryContract
 {
 
    public function __construct({{modelName}} $model)

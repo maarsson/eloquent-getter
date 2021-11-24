@@ -33,7 +33,7 @@ class MakeRepositoryCommand extends Command
     public function handle()
     {
         $this->modelName = ucfirst($this->argument('model'));
-        $this->makeRepositoryInterface();
+        $this->makeRepositoryContract();
         $this->makeRepository();
         $this->makeEvents();
         $this->makeListeners();
@@ -76,9 +76,9 @@ class MakeRepositoryCommand extends Command
     /**
      * Creates a repository interface.
      */
-    protected function makeRepositoryInterface()
+    protected function makeRepositoryContract()
     {
-        $this->makeClass('RepositoryInterface', 'Interfaces');
+        $this->makeClass('RepositoryContract', 'Contracts');
     }
 
     /**
