@@ -43,7 +43,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     public function all(string ...$columns): Collection
     {
-        return $this->model->all(
+        return $this->model()->all(
             empty($columns) ? '*' : $columns
         );
     }
@@ -57,7 +57,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     public function create(array $attributes): Model
     {
-        return $this->model->create($attributes);
+        return $this->model()->create($attributes);
     }
 
     /**
@@ -69,6 +69,6 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      */
     public function find($id): ?Model
     {
-        return $this->model->find($id);
+        return $this->model()->find($id);
     }
 }
