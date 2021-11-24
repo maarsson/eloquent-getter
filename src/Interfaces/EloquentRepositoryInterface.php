@@ -11,6 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 interface EloquentRepositoryInterface
 {
     /**
+     * Creates a new model instance
+     *
+     * @return Model
+     */
+    public function model(): Model;
+
+    /**
      * Gets all entity.
      * Returned columns can be filtered
      *

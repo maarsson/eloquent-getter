@@ -24,6 +24,16 @@ abstract class BaseRepository implements EloquentRepositoryInterface
     }
 
     /**
+     * Creates a new model instance
+     *
+     * @return Model
+     */
+    public function model(): Model
+    {
+        return new $this->model;
+    }
+
+    /**
      * Gets all entity.
      * Returned columns can be filtered
      *
