@@ -3,6 +3,7 @@
 namespace Maarsson\Repository\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\File;
 
 class MakeRepositoryCommand extends Command
 {
@@ -61,16 +62,40 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeClass(string $stub, string $target)
     {
+        $file = app_path('/' . $target . '/' . $this->modelName . $stub . '.php');
+
+        if (File::exists($file)) {
+            $this->error('Class `' . $file . '` already exists, skipped.');
+
+            return false;
+        }
+
+        $this->createFolder($target);
+
         $template = str_replace(
             ['{{modelName}}'],
             [$this->modelName],
             $this->getStub($stub)
         );
 
-        file_put_contents(
-            app_path('/' . $target . '/' . $this->modelName . $stub . '.php'),
+        File::put(
+            $file,
             $template
         );
+
+        $this->info('Class `' . $file . '` was created.');
+    }
+
+    /**
+     * Creates folder if not exists.
+     */
+    protected function createFolder(string $folder)
+    {
+        $path = app_path($folder);
+
+        if (! File::isDirectory($path)) {
+            File::makeDirectory($path, 0777, true, true);
+        }
     }
 
     /**
