@@ -30,7 +30,7 @@ interface EloquentRepositoryInterface
      *
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function all(string ...$columns): Collection;
 
@@ -61,7 +61,7 @@ interface EloquentRepositoryInterface
      * @param mixed $id
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model|Illuminate\Support\Collection
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function findBy(string $column, $value = null, string ...$columns): ?Collection;
 }

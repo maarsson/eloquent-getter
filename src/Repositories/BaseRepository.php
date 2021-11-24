@@ -49,7 +49,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      *
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function all(string ...$columns): Collection
     {
@@ -94,7 +94,7 @@ abstract class BaseRepository implements EloquentRepositoryInterface
      * @param mixed $id
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return Illuminate\Database\Eloquent\Collection
      */
     public function findBy(string $column, $value = null, string ...$columns): ?Collection
     {
