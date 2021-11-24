@@ -1,0 +1,14 @@
+<?php
+
+namespace App\Events;
+
+use App\Models\{{modelName}};
+use Maarsson\Repository\Events\ModelIsCreatingEvent;
+
+class {{modelName}}IsCreatingEvent extends ModelIsCreatingEvent
+{
+    public function __construct($attributes)
+    {
+         parent::__construct($attributes);
+    }
+}

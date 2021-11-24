@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Listeners;
+
+use Maarsson\Repository\Events\ModelWasCreatedEvent;
+use Maarsson\Repository\Listeners\ModelWasCreatedListener;
+
+class {{modelName}}WasCreatedListener extends ModelWasCreatedListener
+{
+    /**
+     * Create the event listener.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  Maarsson\Repository\Events\ModelWasCreated  $event
+     * @return void
+     */
+    public function handle(ModelWasCreatedEvent $event)
+    {
+        // Access the model using $event->model...
+        // Access the attributes using $event->attributes...
+    }
+}

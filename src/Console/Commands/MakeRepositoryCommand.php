@@ -35,6 +35,8 @@ class MakeRepositoryCommand extends Command
         $this->modelName = ucfirst($this->argument('model'));
         $this->makeRepositoryInterface();
         $this->makeRepository();
+        $this->makeEvents();
+        $this->makeListeners();
     }
 
     /**
@@ -85,5 +87,23 @@ class MakeRepositoryCommand extends Command
     protected function makeRepository()
     {
         $this->makeClass('Repository', 'Repositories');
+    }
+
+    /**
+     * Creates events classes.
+     */
+    protected function makeEvents()
+    {
+        $this->makeClass('IsCreatingEvent', 'Events');
+        $this->makeClass('WasCreatedEvent', 'Events');
+    }
+
+    /**
+     * Creates listeners classes.
+     */
+    protected function makeListeners()
+    {
+        $this->makeClass('IsCreatingListener', 'Listeners');
+        $this->makeClass('WasCreatedListener', 'Listeners');
     }
 }
