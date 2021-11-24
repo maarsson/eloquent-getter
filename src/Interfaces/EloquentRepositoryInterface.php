@@ -45,10 +45,12 @@ interface EloquentRepositoryInterface
 
     /**
      * Finds an entity by its ID.
+     * Returned columns can be filtered
      *
      * @param mixed $id
+     * @param string... $columns
      *
      * @return Illuminate\Database\Eloquent\Model|Illuminate\Support\Collection
      */
-    public function find($id): ?Model;
+    public function find($id, string ...$columns): ?Model;
 }
