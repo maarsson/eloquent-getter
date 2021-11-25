@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Repositories;
+namespace {{repositoriesNamespace}};
 
-use App\Models\{{modelName}};
-use App\Contracts\{{modelName}}RepositoryContract;
+use {{modelsNamespace}}\{{modelName}};
+use {{contractsNamespace}}\{{modelName}}RepositoryContract;
 use Maarsson\Repository\Repositories\EloquentRepository;
 
 class {{modelName}}Repository extends EloquentRepository implements {{modelName}}RepositoryContract

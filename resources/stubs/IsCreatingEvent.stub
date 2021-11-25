@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Events;
+namespace {{eventsNamespace}};
 
-use App\Models\{{modelName}};
+use {{modelsNamespace}}\{{modelName}};
 use Maarsson\Repository\Events\ModelIsCreatingEvent;
 
 class {{modelName}}IsCreatingEvent extends ModelIsCreatingEvent

@@ -4,9 +4,12 @@ namespace Maarsson\Repository\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Maarsson\Repository\Traits\UsesFolderConfig;
 
 class MakeRepositoryCommand extends Command
 {
+    use UsesFolderConfig;
+
     /**
      * The name and signature of the console command.
      *
@@ -62,8 +65,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeClass(string $stub, string $target)
     {
-        $file = app_path('/' . $target . '/' . $this->modelName . $stub . '.php');
-
+        $file = $target . '/' . $this->modelName . $stub . '.php';
         if (File::exists($file)) {
             $this->error('Class `' . $file . '` already exists, skipped.');
 
@@ -73,8 +75,22 @@ class MakeRepositoryCommand extends Command
         $this->createFolder($target);
 
         $template = str_replace(
-            ['{{modelName}}'],
-            [$this->modelName],
+            [
+                '{{modelName}}',
+                '{{modelsNamespace}}',
+                '{{contractsNamespace}}',
+                '{{repositoriesNamespace}}',
+                '{{eventsNamespace}}',
+                '{{listenersNamespace}}',
+            ],
+            [
+                $this->modelName,
+                $this->getModelsNamespace(false),
+                $this->getContractsNamespace(false),
+                $this->getRepositoriesNamespace(false),
+                $this->getEventsNamespace(false),
+                $this->getListenersNamespace(false),
+            ],
             $this->getStub($stub)
         );
 
@@ -91,10 +107,8 @@ class MakeRepositoryCommand extends Command
      */
     protected function createFolder(string $folder)
     {
-        $path = app_path($folder);
-
-        if (! File::isDirectory($path)) {
-            File::makeDirectory($path, 0777, true, true);
+        if (! File::isDirectory($folder)) {
+            File::makeDirectory($folder, 0777, true, true);
         }
     }
 
@@ -103,7 +117,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeRepositoryContract()
     {
-        $this->makeClass('RepositoryContract', 'Contracts');
+        $this->makeClass('RepositoryContract', $this->getContractsFolder());
     }
 
     /**
@@ -111,7 +125,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeRepository()
     {
-        $this->makeClass('Repository', 'Repositories');
+        $this->makeClass('Repository', $this->getRepositoriesFolder());
     }
 
     /**
@@ -119,8 +133,8 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeEvents()
     {
-        $this->makeClass('IsCreatingEvent', 'Events');
-        $this->makeClass('WasCreatedEvent', 'Events');
+        $this->makeClass('IsCreatingEvent', $this->getEventsFolder());
+        $this->makeClass('WasCreatedEvent', $this->getEventsFolder());
     }
 
     /**
@@ -128,7 +142,7 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeListeners()
     {
-        $this->makeClass('IsCreatingListener', 'Listeners');
-        $this->makeClass('WasCreatedListener', 'Listeners');
+        $this->makeClass('IsCreatingListener', $this->getListenersFolder());
+        $this->makeClass('WasCreatedListener', $this->getListenersFolder());
     }
 }
