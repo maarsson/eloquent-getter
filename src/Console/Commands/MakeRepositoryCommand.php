@@ -37,7 +37,7 @@ class MakeRepositoryCommand extends Command
      */
     public function handle()
     {
-        $this->modelName = ucfirst($this->argument('model'));
+        $this->modelName = $this->toNamespaceFormat($this->argument('model'));
         $this->makeRepositoryContract();
         $this->makeRepository();
         $this->makeEvents();
@@ -46,6 +46,11 @@ class MakeRepositoryCommand extends Command
         if (! $this->modelExists($this->modelName)) {
             $this->error('NOTICE: Model class `' . $this->getModelsNamespace() . $this->modelName . '` does not exists yet! Don´t forget to create it.');
         }
+
+        if (! collect(config('repository.models'))->contains($this->modelName)) {
+            $this->error('NOTICE: Do not forget to add model class `' . $this->modelName . '` to the `models` array in the config/repository.php file.');
+        }
+
     }
 
     /**
