@@ -19,10 +19,12 @@ trait HasModelEvents
     {
         $modelName = $this->getModelName($model);
 
-        foreach ($this->availableEvents as $event) {
-            $this->events[$event] = $this->getEvent($modelName, $event);
-            $this->listeners[$event] = $this->getListener($modelName, $event);
-        }
+        collect($this->availableEvents)->each(
+            function ($event) {
+                $this->events[$event] = $this->getEvent($modelName, $event);
+                $this->listeners[$event] = $this->getListener($modelName, $event);
+            }
+        );
     }
 
     protected function getModelName($model)

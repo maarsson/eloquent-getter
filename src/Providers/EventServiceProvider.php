@@ -36,9 +36,9 @@ class EventServiceProvider extends ServiceProvider
      */
     public function registerListeners()
     {
-        foreach (config('repository.models') as $model) {
-            $this->registerListener($model);
-        }
+        collect(config('repository.models'))->each(
+            fn($model) => $this->registerListener($model)
+        );
     }
 
     /**
@@ -50,12 +50,14 @@ class EventServiceProvider extends ServiceProvider
     {
         $this->setEventsForModel($model);
 
-        foreach ($this->events as $event => $class) {
-            $this->listen[
-                $this->events[$event]
-            ] = [
-                $this->listeners[$event],
-            ];
-        }
+        collect($this->events)->each(
+            function ($class, $event) {
+                $this->listen[
+                    $this->events[$event]
+                ] = [
+                    $this->listeners[$event],
+                ];
+            }
+        );
     }
 }

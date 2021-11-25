@@ -67,11 +67,9 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(EloquentRepositoryContract::class, EloquentRepository::class);
 
-        foreach (config('repository.models') as $model) {
-            if (class_exists($this->getModelsNamespace() . $model)){
-                $this->registerBinding($model);
-            }
-        }
+        collect(config('repository.models'))->each(
+            fn($model) => $this->registerBinding($model)
+        );
     }
 
     /**
