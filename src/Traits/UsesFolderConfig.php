@@ -24,7 +24,7 @@ trait UsesFolderConfig
             $this->{$type . 'Folder'} = str_replace('\\', '/', $this->{$type . 'Folder'});
         }
 
-        return $this->{$type . 'Folder'};
+        return app_path($this->{$type . 'Folder'});
     }
 
     protected function getNamespace($type)
@@ -41,7 +41,7 @@ trait UsesFolderConfig
     protected function classExists($type, $class)
     {
         return file_exists(
-            app_path($this->{'get' . $type . 'Folder'}() . '/' . $class . '.php')
+            $this->{'get' . $type . 'Folder'}() . '/' . $class . '.php'
         );
     }
 
