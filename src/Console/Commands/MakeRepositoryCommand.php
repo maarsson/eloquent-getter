@@ -30,6 +30,10 @@ class MakeRepositoryCommand extends Command
      */
     protected $modelName;
 
+    protected $modelBaseName;
+    protected $modelNamespaceSuffix;
+    protected $modelPathSuffix;
+
     /**
      * Execute the console command.
      *
@@ -37,20 +41,38 @@ class MakeRepositoryCommand extends Command
      */
     public function handle()
     {
-        $this->modelName = $this->toNamespaceFormat($this->argument('model'));
+        $this->setModelName();
         $this->makeRepositoryContract();
         $this->makeRepository();
         $this->makeEvents();
         $this->makeListeners();
+        $this->warnIfModelNotExists();
+        $this->warnIfModelNotConfigured();
+    }
 
+    protected function setModelName()
+    {
+        if (! $this->hasArgument('model')) {
+            $this->error('Argument for model name (eg. `Foo\Bar`) must be specified!');
+            $this->exit();
+        }
+
+        $this->modelName = $this->toNamespaceFormat($this->argument('model'));
+        $this->splitModelNameToParts();
+    }
+
+    protected function warnIfModelNotExists()
+    {
         if (! $this->modelExists($this->modelName)) {
             $this->error('NOTICE: Model class `' . $this->getModelsNamespace() . $this->modelName . '` does not exists yet! Don´t forget to create it.');
         }
+    }
 
+    protected function warnIfModelNotConfigured()
+    {
         if (! collect(config('repository.models'))->contains($this->modelName)) {
             $this->error('NOTICE: Do not forget to add model class `' . $this->modelName . '` to the `models` array in the config/repository.php file.');
         }
-
     }
 
     /**
@@ -62,9 +84,65 @@ class MakeRepositoryCommand extends Command
      */
     protected function getStub(string $type): string
     {
-        return file_get_contents(
+        return File::get(
             __DIR__ . '/../../../resources/stubs/' . $type . '.stub'
         );
+    }
+
+    protected function splitModelNameToParts()
+    {
+        preg_match(
+            '/(.*)\/(.*)/',
+            $this->toPathFormat($this->modelName),
+            $modelClassParts
+        );
+        $this->modelBaseName = empty($modelClassParts) ? $this->modelName : $modelClassParts[2];
+        $this->modelNamespaceSuffix = empty($modelClassParts) ? null : '\\' . $this->toNamespaceFormat($modelClassParts[1]);
+        $this->modelPathSuffix = empty($modelClassParts) ? null : '/' . $modelClassParts[1];
+    }
+
+    protected function fileAlreadyExists($file)
+    {
+        if (! File::exists($file)) {
+            return false;
+        }
+
+        $this->error('Class `' . $file . '` already exists, skipped.');
+
+        return true;
+    }
+
+    protected function getConvertedStubContent($stub)
+    {
+        return Str::replace(
+            [
+                '{{modelName}}',
+                '{{modelsNamespace}}',
+                '{{contractsNamespace}}',
+                '{{repositoriesNamespace}}',
+                '{{eventsNamespace}}',
+                '{{listenersNamespace}}',
+            ],
+            [
+                $this->modelBaseName,
+                $this->getModelsNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getContractsNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getRepositoriesNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getEventsNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getListenersNamespace(false) . $this->modelNamespaceSuffix,
+            ],
+            $this->getStub($stub)
+        );
+    }
+
+    protected function createFileFromStub($stub, $file)
+    {
+        File::put(
+            $file,
+            $this->getConvertedStubContent($stub)
+        );
+
+        $this->info('Class `' . $file . '` was created.');
     }
 
     /**
@@ -75,52 +153,14 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeClass(string $stub, string $target)
     {
-        preg_match(
-            '/(.*)\/(.*)/',
-            $this->toPathFormat($this->modelName),
-            $modelClassParts
-        );
+        $file = $target . $this->modelPathSuffix . '/' . $this->modelBaseName . $stub . '.php';
 
-        $modelBaseName = empty($modelClassParts) ? $this->modelName : $modelClassParts[2];
-        $namespaceSuffix = empty($modelClassParts) ? null : '\\' . $this->toNamespaceFormat($modelClassParts[1]);
-        $pathSuffix = empty($modelClassParts) ? null : '/' . $modelClassParts[1];
-
-        $file = $target . $pathSuffix . '/' . $modelBaseName . $stub . '.php';
-
-        if (File::exists($file)) {
-            $this->error('Class `' . $file . '` already exists, skipped.');
-
+        if ($this->fileAlreadyExists($file)) {
             return false;
         }
 
-        $this->createFolder($target . $pathSuffix);
-
-        $template = Str::replace(
-            [
-                '{{modelName}}',
-                '{{modelsNamespace}}',
-                '{{contractsNamespace}}',
-                '{{repositoriesNamespace}}',
-                '{{eventsNamespace}}',
-                '{{listenersNamespace}}',
-            ],
-            [
-                $modelBaseName,
-                $this->getModelsNamespace(false) . $namespaceSuffix,
-                $this->getContractsNamespace(false) . $namespaceSuffix,
-                $this->getRepositoriesNamespace(false) . $namespaceSuffix,
-                $this->getEventsNamespace(false) . $namespaceSuffix,
-                $this->getListenersNamespace(false) . $namespaceSuffix,
-            ],
-            $this->getStub($stub)
-        );
-
-        File::put(
-            $file,
-            $template
-        );
-
-        $this->info('Class `' . $file . '` was created.');
+        $this->createFolder($target . $this->modelPathSuffix);
+        $this->createFileFromStub($stub, $file);
     }
 
     /**
