@@ -11,10 +11,6 @@ trait HasModelEvents
         'WasCreated',
     ];
 
-    protected $eventClassName = 'App\\Events\\%s%sEvent';
-
-    protected $listenerClassName = 'App\\Listeners\\%s%sListener';
-
     protected $events = [];
 
     protected $listeners = [];
@@ -32,7 +28,7 @@ trait HasModelEvents
     protected function getModelName($model)
     {
         if ($model instanceof Model) {
-            return str_replace('App\\Models\\', '', get_class($model));
+            return str_replace($this->getModelsNamespace(), '', get_class($model));
         }
 
         return $model;
@@ -40,11 +36,21 @@ trait HasModelEvents
 
     protected function getEvent(string $model, string $event)
     {
-        return sprintf($this->eventClassName, $model, $event);
+        return sprintf(
+            '%s%s%sEvent',
+            $this->getEventsNamespace(),
+            $model,
+            $event
+        );
     }
 
     protected function getListener(string $model, string $event)
     {
-        return sprintf($this->listenerClassName, $model, $event);
+        return sprintf(
+            '%s%s%sListener',
+            $this->getListenersNamespace(),
+            $model,
+            $event
+        );
     }
 }
