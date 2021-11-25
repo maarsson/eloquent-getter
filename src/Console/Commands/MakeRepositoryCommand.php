@@ -42,6 +42,10 @@ class MakeRepositoryCommand extends Command
         $this->makeRepository();
         $this->makeEvents();
         $this->makeListeners();
+
+        if (! $this->modelExists($this->modelName)) {
+            $this->error('NOTICE: Model class `' . $this->getModelsNamespace() . $this->modelName . '` does not exists yet! Don´t forget to create it.');
+        }
     }
 
     /**
