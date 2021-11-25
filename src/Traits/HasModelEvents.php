@@ -3,6 +3,7 @@
 namespace Maarsson\Repository\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 trait HasModelEvents
 {
@@ -30,7 +31,7 @@ trait HasModelEvents
     protected function getModelName($model)
     {
         if ($model instanceof Model) {
-            return str_replace($this->getModelsNamespace(), '', get_class($model));
+            return Str::remove($this->getModelsNamespace(), get_class($model));
         }
 
         return $model;
