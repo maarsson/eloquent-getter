@@ -7,9 +7,11 @@ use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
 use Maarsson\Repository\Providers\EventServiceProvider;
 use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Repositories\EloquentRepository;
+use Maarsson\Repository\Traits\UsesFolderConfig;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
+    use  UsesFolderConfig;
     /**
      * Bootstrap any package services.
      *
@@ -66,11 +68,23 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(EloquentRepositoryContract::class, EloquentRepository::class);
 
         foreach (config('repository.models') as $model) {
-            $this->app->bind(
-                'App\\Contracts\\' . $model . 'RepositoryContract',
-                'App\\Repositories\\' . $model . 'Repository',
-            );
+            if (class_exists($this->getModelsNamespace() . $model)){
+                $this->registerBinding($model);
+            }
         }
+    }
+
+    /**
+     * Bind interface and repository of a model.
+     *
+     * @return void
+     */
+    protected function registerBinding(string $model)
+    {
+        $this->app->bind(
+            $this->getContractsNamespace() . $model . 'RepositoryContract',
+            $this->getRepositoriesNamespace() . $model . 'Repository',
+        );
     }
 
     /**
