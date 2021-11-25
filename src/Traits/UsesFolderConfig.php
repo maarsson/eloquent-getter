@@ -27,12 +27,12 @@ trait UsesFolderConfig
         return app_path($this->{$type . 'Folder'});
     }
 
-    protected function getNamespace($type)
+    protected function getNamespace($type, $withTrailingSlash = true)
     {
         if (empty($this->{$type . 'Namespace'})) {
             $this->{$type . 'Namespace'} = config('repository.folders.' . $type, ucfirst($type));
             $this->{$type . 'Namespace'} = str_replace('/', '\\', $this->{$type . 'Namespace'});
-            $this->{$type . 'Namespace'} = 'App\\' . $this->{$type . 'Namespace'} .'\\';
+            $this->{$type . 'Namespace'} = 'App\\' . $this->{$type . 'Namespace'} . ($withTrailingSlash ? '\\' : '');
         }
 
         return $this->{$type . 'Namespace'};
@@ -70,29 +70,29 @@ trait UsesFolderConfig
         return $this->getFolder('listeners');
     }
 
-    protected function getModelsNamespace()
+    protected function getModelsNamespace($withTrailingSlash = true)
     {
-        return $this->getNamespace('models');
+        return $this->getNamespace('models', $withTrailingSlash);
     }
 
-    protected function getContractsNamespace()
+    protected function getContractsNamespace($withTrailingSlash = true)
     {
-        return $this->getNamespace('contracts');
+        return $this->getNamespace('contracts', $withTrailingSlash);
     }
 
-    protected function getRepositoriesNamespace()
+    protected function getRepositoriesNamespace($withTrailingSlash = true)
     {
-        return $this->getNamespace('repositories');
+        return $this->getNamespace('repositories', $withTrailingSlash);
     }
 
-    protected function getEventsNamespace()
+    protected function getEventsNamespace($withTrailingSlash = true)
     {
-        return $this->getNamespace('events');
+        return $this->getNamespace('events', $withTrailingSlash);
     }
 
-    protected function getListenersNamespace()
+    protected function getListenersNamespace($withTrailingSlash = true)
     {
-        return $this->getNamespace('listeners');
+        return $this->getNamespace('listeners', $withTrailingSlash);
     }
 
     protected function modelExists($class)
