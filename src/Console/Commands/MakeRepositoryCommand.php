@@ -4,6 +4,7 @@ namespace Maarsson\Repository\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 use Maarsson\Repository\Traits\UsesFolderConfig;
 
 class MakeRepositoryCommand extends Command
@@ -65,16 +66,27 @@ class MakeRepositoryCommand extends Command
      */
     protected function makeClass(string $stub, string $target)
     {
-        $file = $target . '/' . $this->modelName . $stub . '.php';
+        preg_match(
+            '/(.*)\/(.*)/',
+            $this->toPathFormat($this->modelName),
+            $modelClassParts
+        );
+
+        $modelBaseName = empty($modelClassParts) ? $this->modelName : $modelClassParts[2];
+        $namespaceSuffix = empty($modelClassParts) ? null : '\\' . $this->toNamespaceFormat($modelClassParts[1]);
+        $pathSuffix = empty($modelClassParts) ? null : '/' . $modelClassParts[1];
+
+        $file = $target . $pathSuffix . '/' . $modelBaseName . $stub . '.php';
+
         if (File::exists($file)) {
             $this->error('Class `' . $file . '` already exists, skipped.');
 
             return false;
         }
 
-        $this->createFolder($target);
+        $this->createFolder($target . $pathSuffix);
 
-        $template = str_replace(
+        $template = Str::replace(
             [
                 '{{modelName}}',
                 '{{modelsNamespace}}',
@@ -84,12 +96,12 @@ class MakeRepositoryCommand extends Command
                 '{{listenersNamespace}}',
             ],
             [
-                $this->modelName,
-                $this->getModelsNamespace(false),
-                $this->getContractsNamespace(false),
-                $this->getRepositoriesNamespace(false),
-                $this->getEventsNamespace(false),
-                $this->getListenersNamespace(false),
+                $modelBaseName,
+                $this->getModelsNamespace(false) . $namespaceSuffix,
+                $this->getContractsNamespace(false) . $namespaceSuffix,
+                $this->getRepositoriesNamespace(false) . $namespaceSuffix,
+                $this->getEventsNamespace(false) . $namespaceSuffix,
+                $this->getListenersNamespace(false) . $namespaceSuffix,
             ],
             $this->getStub($stub)
         );

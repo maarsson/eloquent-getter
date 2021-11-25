@@ -3,6 +3,7 @@
 namespace Maarsson\Repository\Traits;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 trait UsesFolderConfig
 {
@@ -21,7 +22,7 @@ trait UsesFolderConfig
     {
         if (empty($this->{$type . 'Folder'})) {
             $this->{$type . 'Folder'} = config('repository.folders.' . $type, ucfirst($type));
-            $this->{$type . 'Folder'} = str_replace('\\', '/', $this->{$type . 'Folder'});
+            $this->{$type . 'Folder'} = $this->toPathFormat($this->{$type . 'Folder'});
         }
 
         return app_path($this->{$type . 'Folder'});
@@ -31,7 +32,7 @@ trait UsesFolderConfig
     {
         if (empty($this->{$type . 'Namespace'})) {
             $this->{$type . 'Namespace'} = config('repository.folders.' . $type, ucfirst($type));
-            $this->{$type . 'Namespace'} = str_replace('/', '\\', $this->{$type . 'Namespace'});
+            $this->{$type . 'Namespace'} = $this->toNamespaceFormat($this->{$type . 'Namespace'});
             $this->{$type . 'Namespace'} = 'App\\' . $this->{$type . 'Namespace'} . ($withTrailingSlash ? '\\' : '');
         }
 
@@ -41,7 +42,7 @@ trait UsesFolderConfig
     protected function classExists($type, $class)
     {
         return file_exists(
-            $this->{'get' . $type . 'Folder'}() . '/' . $class . '.php'
+            $this->{'get' . $type . 'Folder'}() . '/' . $this->toPathFormat($class) . '.php'
         );
     }
 
@@ -118,5 +119,15 @@ trait UsesFolderConfig
     protected function listenerExists($class)
     {
         return $this->classExists('listeners', $class);
+    }
+
+    protected function toNamespaceFormat($string)
+    {
+        return Str::replace('/', '\\', $string);
+    }
+
+    protected function toPathFormat($string)
+    {
+        return Str::replace('\\', '/', $string);
     }
 }
