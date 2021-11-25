@@ -13,6 +13,7 @@ return [
 
     'models' => [
         // 'MyModel'
+        // 'Foo\Bar'
     ],
 
     /*
@@ -22,6 +23,8 @@ return [
     |
     | Paths below must be under Laravels `/app` folder.
     | Folders will be automatically created if not exists.
+    |
+    | Subfolders (eg. "Repositories/Eloquent") can also be used.
     |
     */
 
