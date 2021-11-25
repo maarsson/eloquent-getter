@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Traits\HasModelEvents;
+use Maarsson\Repository\Traits\UsesFolderConfig;
 
 abstract class EloquentRepository implements EloquentRepositoryContract
 {
-    use HasModelEvents;
+    use HasModelEvents, UsesFolderConfig;
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
