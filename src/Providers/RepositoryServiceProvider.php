@@ -81,6 +81,14 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected function registerBinding(string $model)
     {
+        if (
+            ! $this->modelExists($model)
+            || ! $this->repositoryExists($model . 'Repository')
+            || ! $this->contractExists($model . 'RepositoryContract')
+        ) {
+            return false;
+        }
+
         $this->app->bind(
             $this->getContractsNamespace() . $model . 'RepositoryContract',
             $this->getRepositoriesNamespace() . $model . 'Repository',

@@ -38,6 +38,13 @@ trait UsesFolderConfig
         return $this->{$type . 'Namespace'};
     }
 
+    protected function classExists($type, $class)
+    {
+        return file_exists(
+            app_path($this->{'get' . $type . 'Folder'}() . '/' . $class . '.php')
+        );
+    }
+
     protected function getModelsFolder()
     {
         return $this->getFolder('models');
@@ -86,5 +93,30 @@ trait UsesFolderConfig
     protected function getListenersNamespace()
     {
         return $this->getNamespace('listeners');
+    }
+
+    protected function modelExists($class)
+    {
+        return $this->classExists('models', $class);
+    }
+
+    protected function contractExists($class)
+    {
+        return $this->classExists('contracts', $class);
+    }
+
+    protected function repositoryExists($class)
+    {
+        return $this->classExists('repositories', $class);
+    }
+
+    protected function eventExists($class)
+    {
+        return $this->classExists('events', $class);
+    }
+
+    protected function listenerExists($class)
+    {
+        return $this->classExists('listeners', $class);
     }
 }
