@@ -20,7 +20,7 @@ trait HasModelEvents
         $modelName = $this->getModelName($model);
 
         collect($this->availableEvents)->each(
-            function ($event) {
+            function ($event) use ($modelName) {
                 $this->events[$event] = $this->getEvent($modelName, $event);
                 $this->listeners[$event] = $this->getListener($modelName, $event);
             }
