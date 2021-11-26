@@ -5,7 +5,7 @@ This package adds and extendable repository pattern to your Laravel project.
 ## Installation
 
 1. Add package to your Laravel project: `composer require maarsson/laravel-repository`
-2. Publish config file `php aritsan vendor:publish --tag=repository-config`
+2. Publish config file `php artisan vendor:publish --tag=repository-config`
 
 ## Usage
 
@@ -14,11 +14,11 @@ This package adds and extendable repository pattern to your Laravel project.
 2. Add your model name to the `config/repository.php`:
     ```php
         'models' => [
-            'YourModel'
+            'YourModel',
         ],
     ```
 
-3. Use dependency injection in your controller:
+3. Use dependency injection in your code:
     ```php
     use App\Contracts\YourModelRepositoryContract;
 
@@ -33,6 +33,23 @@ This package adds and extendable repository pattern to your Laravel project.
     }
     ```
 
+3. Optionally you can add custom methods to the repository:
+    ```php
+        class YourModelRepository extends EloquentRepository implements YourModelRepositoryContract
+        {
+            public function doSomeConverting() 
+            {
+                // your code here
+            }
+        }
+    ```
+    and also to the interface class:
+    ```php
+        interface YourModelRepositoryContract
+        {
+            public function doSomeConverting();
+        }
+    ```
 
 ## Methods
 
