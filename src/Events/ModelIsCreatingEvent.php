@@ -15,14 +15,12 @@ class ModelIsCreatingEvent
      *
      * @var array
      */
-    public $attributes;
+    public array $attributes;
 
     /**
      * Create a new event instance.
      *
      * @param array $attributes
-     *
-     * @return void
      */
     public function __construct(array $attributes)
     {

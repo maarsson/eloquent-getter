@@ -7,20 +7,40 @@ use Illuminate\Support\Str;
 
 trait HasModelEvents
 {
-    protected $availableEvents = [
+    /**
+     * List of available repository event types.
+     *
+     * @var array
+     */
+    protected array $availableEventTypes = [
         'IsCreating',
         'WasCreated',
     ];
 
-    protected $events = [];
+    /**
+     * Container for available repository events.
+     *
+     * @var array
+     */
+    protected array $events = [];
 
-    protected $listeners = [];
+    /**
+     * Container for available repository listeners.
+     *
+     * @var array
+     */
+    protected array $listeners = [];
 
-    protected function setEventsForModel($model)
+    /**
+     * Stores the repository events and listeners to the container properties.
+     *
+     * @param Model|string $model
+     */
+    protected function setEventsForModel(Model|string $model): void
     {
         $modelName = $this->getModelName($model);
 
-        collect($this->availableEvents)->each(
+        collect($this->availableEventTypes)->each(
             function ($event) use ($modelName) {
                 $this->events[$event] = $this->getEvent($modelName, $event);
                 $this->listeners[$event] = $this->getListener($modelName, $event);
@@ -28,7 +48,14 @@ trait HasModelEvents
         );
     }
 
-    protected function getModelName($model)
+    /**
+     * Gets the model class name.
+     *
+     * @param Model|string $model
+     *
+     * @return string
+     */
+    protected function getModelName(Model|string $model): string
     {
         if ($model instanceof Model) {
             return Str::remove($this->getModelsNamespace(), get_class($model));
@@ -37,7 +64,7 @@ trait HasModelEvents
         return $model;
     }
 
-    protected function getEvent(string $model, string $event)
+    protected function getEvent(string $model, string $event): string
     {
         return sprintf(
             '%s%s%sEvent',
@@ -47,7 +74,7 @@ trait HasModelEvents
         );
     }
 
-    protected function getListener(string $model, string $event)
+    protected function getListener(string $model, string $event): string
     {
         return sprintf(
             '%s%s%sListener',

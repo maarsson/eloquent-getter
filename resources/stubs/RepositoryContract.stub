@@ -4,5 +4,10 @@ namespace {{contractsNamespace}};
 
 interface {{modelName}}RepositoryContract
 {
-    // here can you place custom methods only for this repository
+    /**
+     * Here can you place custom methods declarations only for this repository.
+     *
+     * Don´t forget to also add the methods to the
+     * {{repositoriesNamespace}}\{{modelName}}Repository class
+     */
 }

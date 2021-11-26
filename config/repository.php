@@ -12,8 +12,8 @@ return [
     */
 
     'models' => [
-        // 'MyModel'
-        // 'Foo\Bar'
+        // 'MyModel',
+        // 'Foo\Bar',
     ],
 
     /*

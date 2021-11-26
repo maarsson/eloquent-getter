@@ -9,8 +9,6 @@ class {{modelName}}WasCreatedListener extends ModelWasCreatedListener
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -20,8 +18,7 @@ class {{modelName}}WasCreatedListener extends ModelWasCreatedListener
     /**
      * Handle the event.
      *
-     * @param  Maarsson\Repository\Events\ModelWasCreated  $event
-     * @return void
+     * @param  Maarsson\Repository\Events\ModelWasCreated $event
      */
     public function handle(ModelWasCreatedEvent $event)
     {

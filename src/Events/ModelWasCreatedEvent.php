@@ -16,22 +16,20 @@ class ModelWasCreatedEvent
      *
      * @var Illuminate\Database\Eloquent\Model
      */
-    public $model;
+    public Model $model;
 
     /**
      * The creating attributes data.
      *
      * @var array
      */
-    public $attributes;
+    public array $attributes;
 
     /**
      * Create a new event instance.
      *
      * @param Illuminate\Database\Eloquent\Model $model
      * @param array $attributes
-     *
-     * @return void
      */
     public function __construct(Model $model, array $attributes)
     {

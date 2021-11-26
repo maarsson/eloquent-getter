@@ -9,8 +9,6 @@ class {{modelName}}IsCreatingListener extends ModelIsCreatingListener
 {
     /**
      * Create the event listener.
-     *
-     * @return void
      */
     public function __construct()
     {
@@ -20,8 +18,7 @@ class {{modelName}}IsCreatingListener extends ModelIsCreatingListener
     /**
      * Handle the event.
      *
-     * @param  Maarsson\Repository\Events\ModelIsCreating  $event
-     * @return void
+     * @param  Maarsson\Repository\Events\ModelIsCreating $event
      */
     public function handle(ModelIsCreatingEvent $event)
     {

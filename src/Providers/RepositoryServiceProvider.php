@@ -4,7 +4,6 @@ namespace Maarsson\Repository\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
-use Maarsson\Repository\Providers\EventServiceProvider;
 use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Repositories\EloquentRepository;
 use Maarsson\Repository\Traits\UsesFolderConfig;
@@ -12,6 +11,7 @@ use Maarsson\Repository\Traits\UsesFolderConfig;
 class RepositoryServiceProvider extends ServiceProvider
 {
     use  UsesFolderConfig;
+
     /**
      * Bootstrap any package services.
      *
@@ -40,7 +40,7 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this->mergeConfigFrom(
             __DIR__ . '/../../config/repository.php',
@@ -53,7 +53,7 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerProviders()
+    protected function registerProviders(): void
     {
         $this->app->register(EventServiceProvider::class);
     }
@@ -63,28 +63,30 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerBindings()
+    protected function registerBindings(): void
     {
         $this->app->bind(EloquentRepositoryContract::class, EloquentRepository::class);
 
         collect(config('repository.models'))->each(
-            fn($model) => $this->registerBinding($model)
+            fn ($model) => $this->registerBinding($model)
         );
     }
 
     /**
      * Bind interface and repository of a model.
      *
+     * @param string $model
+     *
      * @return void
      */
-    protected function registerBinding(string $model)
+    protected function registerBinding(string $model): void
     {
         if (
             ! $this->modelExists($model)
             || ! $this->repositoryExists($model . 'Repository')
             || ! $this->contractExists($model . 'RepositoryContract')
         ) {
-            return false;
+            return;
         }
 
         $this->app->bind(
@@ -98,7 +100,7 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerCommands()
+    protected function registerCommands(): void
     {
         $this->commands(MakeRepositoryCommand::class);
     }
@@ -108,7 +110,7 @@ class RepositoryServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function registerPublishing()
+    protected function registerPublishing(): void
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([

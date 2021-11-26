@@ -34,19 +34,21 @@ class EventServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerListeners()
+    public function registerListeners(): void
     {
         collect(config('repository.models'))->each(
-            fn($model) => $this->registerListener($model)
+            fn ($model) => $this->registerListener($model)
         );
     }
 
     /**
-     * Register listener for a model.
+     * Register a listener for a model.
+     *
+     * @param string $model
      *
      * @return void
      */
-    public function registerListener(string $model)
+    public function registerListener(string $model): void
     {
         $this->setEventsForModel($model);
 

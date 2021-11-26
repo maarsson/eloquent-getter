@@ -7,7 +7,12 @@ use Maarsson\Repository\Events\ModelIsCreatingEvent;
 
 class {{modelName}}IsCreatingEvent extends ModelIsCreatingEvent
 {
-    public function __construct($attributes)
+    /**
+     * Create a new event instance.
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes)
     {
          parent::__construct($attributes);
     }

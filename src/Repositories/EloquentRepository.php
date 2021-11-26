@@ -15,21 +15,22 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     /**
      * @var \Illuminate\Database\Eloquent\Model
      */
-    protected $model;
+    protected Model $model;
 
     /**
-     * Creates a new instance
+     * Creates a new instance.
      *
      * @param Illuminate\Database\Eloquent\Model $model
      */
     public function __construct(Model $model)
     {
         $this->model = $model;
+
         $this->setEventsForModel($this->model);
     }
 
     /**
-     * Creates a new model instance
+     * Creates a new model instance.
      *
      * @return Model
      */
@@ -39,7 +40,9 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     }
 
     /**
-     * Return with column filter array
+     * Return with column filter array.
+     *
+     * @param array $columns The columns
      *
      * @return array
      */
@@ -50,7 +53,7 @@ abstract class EloquentRepository implements EloquentRepositoryContract
 
     /**
      * Gets all entity.
-     * Returned columns can be filtered
+     * Returned columns can be filtered.
      *
      * @param string... $columns
      *
@@ -83,14 +86,14 @@ abstract class EloquentRepository implements EloquentRepositoryContract
 
     /**
      * Finds an entity by its ID.
-     * Returned columns can be filtered
+     * Returned columns can be filtered.
      *
-     * @param mixed $id
+     * @param int|string $id
      * @param string... $columns
      *
      * @return Illuminate\Database\Eloquent\Model
      */
-    public function find($id, string ...$columns): ?Model
+    public function find(int|string $id, string ...$columns): ?Model
     {
         return $this->model()->find(
             $id,
@@ -99,18 +102,19 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     }
 
     /**
-     * Finds an entity by custom column.
-     * Returned columns can be filtered
+     * Finds an entity by custom field.
+     * Returned columns can be filtered.
      *
-     * @param mixed $id
+     * @param string $field The search field
+     * @param null|mixed $value The searched value
      * @param string... $columns
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    public function findBy(string $column, $value = null, string ...$columns): ?Collection
+    public function findBy(string $field, $value = null, string ...$columns): ?Collection
     {
         return $this->model()->where(
-            $column,
+            $field,
             $value
         )
         ->get(
