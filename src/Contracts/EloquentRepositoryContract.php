@@ -67,4 +67,14 @@ interface EloquentRepositoryContract
      * @return Illuminate\Database\Eloquent\Collection
      */
     public function findBy(string $field, $value = null, string ...$columns): ?Collection;
+
+    /**
+     * Updates an entity by its ID.
+     *
+     * @param int|string $id
+     * @param array $attributes
+     *
+     * @return bool
+     */
+    public function update(int|string $id, array $attributes): bool;
 }

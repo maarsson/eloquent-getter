@@ -121,4 +121,25 @@ abstract class EloquentRepository implements EloquentRepositoryContract
             $this->columns($columns)
         );
     }
+
+    /**
+     * Updates an entity by its ID.
+     *
+     * @param int|string $id
+     * @param array $attributes
+     *
+     * @return bool
+     */
+    public function update(int|string $id, array $attributes): bool
+    {
+        $model = $this->model()->find($id);
+
+        event(new $this->events['IsUpdating']($model, $attributes));
+
+        $result = $model->update($attributes);
+
+        event(new $this->events['WasUpdated']($model, $attributes));
+
+        return $result;
+    }
 }

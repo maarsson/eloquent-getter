@@ -14,7 +14,9 @@ trait HasModelEvents
      */
     protected array $availableEventTypes = [
         'IsCreating',
+        'IsUpdating',
         'WasCreated',
+        'WasUpdated',
     ];
 
     /**

@@ -1,0 +1,20 @@
+<?php
+
+namespace {{eventsNamespace}};
+
+use {{modelsNamespace}}\{{modelName}};
+use Maarsson\Repository\Events\ModelIsUpdatingEvent;
+
+class {{modelName}}IsUpdatingEvent extends ModelIsUpdatingEvent
+{
+    /**
+     * Create a new event instance.
+     *
+     * @param {{modelsNamespace}}\{{modelName}} $model
+     * @param array $attributes
+     */
+    public function __construct({{modelName}} $model, array $attributes)
+    {
+         parent::__construct($model, $attributes);
+    }
+}

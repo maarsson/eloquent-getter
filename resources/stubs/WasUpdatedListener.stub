@@ -1,0 +1,28 @@
+<?php
+
+namespace {{listenersNamespace}};
+
+use Maarsson\Repository\Events\ModelWasUpdatedEvent;
+use Maarsson\Repository\Listeners\ModelWasUpdatedListener;
+
+class {{modelName}}WasUpdatedListener extends ModelWasUpdatedListener
+{
+    /**
+     * Create the event listener.
+     */
+    public function __construct()
+    {
+        //
+    }
+
+    /**
+     * Handle the event.
+     *
+     * @param  Maarsson\Repository\Events\ModelWasUpdatedEvent $event
+     */
+    public function handle(ModelWasUpdatedEvent $event)
+    {
+        // Access the model using $event->model...
+        // Access the attributes using $event->attributes...
+    }
+}
