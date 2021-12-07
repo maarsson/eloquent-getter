@@ -85,6 +85,26 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     }
 
     /**
+     * Deletes an entity by its ID.
+     *
+     * @param string $id
+     *
+     * @return bool
+     */
+    public function delete(int|string $id) : bool
+    {
+        $model = $this->model()->find($id);
+
+        event(new $this->events['IsDeleting']($model));
+
+        $result = $model->delete();
+
+        event(new $this->events['WasDeleted']($model));
+
+        return $result;
+    }
+
+    /**
      * Finds an entity by its ID.
      * Returned columns can be filtered.
      *

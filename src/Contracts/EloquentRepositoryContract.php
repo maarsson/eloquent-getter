@@ -46,6 +46,15 @@ interface EloquentRepositoryContract
     public function create(array $attributes): Model;
 
     /**
+     * Deletes an entity by its ID.
+     *
+     * @param int|string $id
+     *
+     * @return bool
+     */
+    public function delete(int|string $id): bool;
+
+    /**
      * Finds an entity by its ID.
      * Returned columns can be filtered.
      *

@@ -137,8 +137,10 @@ class MakeRepositoryCommand extends Command
     protected function makeEvents(): self
     {
         $this->makeClass('IsCreatingEvent', $this->getEventsFolder());
+        $this->makeClass('IsDeletingEvent', $this->getEventsFolder());
         $this->makeClass('IsUpdatingEvent', $this->getEventsFolder());
         $this->makeClass('WasCreatedEvent', $this->getEventsFolder());
+        $this->makeClass('WasDeletedEvent', $this->getEventsFolder());
         $this->makeClass('WasUpdatedEvent', $this->getEventsFolder());
 
         return $this;
@@ -152,8 +154,10 @@ class MakeRepositoryCommand extends Command
     protected function makeListeners(): self
     {
         $this->makeClass('IsCreatingListener', $this->getListenersFolder());
+        $this->makeClass('IsDeletingListener', $this->getListenersFolder());
         $this->makeClass('IsUpdatingListener', $this->getListenersFolder());
         $this->makeClass('WasCreatedListener', $this->getListenersFolder());
+        $this->makeClass('WasDeletedListener', $this->getListenersFolder());
         $this->makeClass('WasUpdatedListener', $this->getListenersFolder());
 
         return $this;
