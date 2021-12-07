@@ -17,7 +17,7 @@ class ModelIsCreatingListener
     /**
      * Handle the event.
      *
-     * @param Maarsson\Repository\Events\ModelIsCreating $event
+     * @param Maarsson\Repository\Events\ModelIsCreatingEvent $event
      */
     public function handle(ModelIsCreatingEvent $event)
     {
