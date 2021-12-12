@@ -2,10 +2,12 @@
 
 This package adds and extendable repository pattern to your Laravel project.
 
+
 ## Installation
 
 1. Add package to your Laravel project: `composer require maarsson/laravel-repository`
 2. Publish config file `php artisan vendor:publish --tag=repository-config`
+
 
 ## Usage
 
@@ -51,6 +53,7 @@ This package adds and extendable repository pattern to your Laravel project.
         }
     ```
 
+
 ## Methods
 
 #### Retrieving entities
@@ -88,14 +91,57 @@ $entity = $this->repository->create([
 ```
 
 
+#### Updating an entity
+
+Updating an entity by ID
+
+```php
+$entity = $this->repository->update(
+    3, // the id of the entity to be updated
+    [
+        'title' => 'Music',
+        'price' => 12.9,
+    ]
+);
+```
+
+
+#### Deleting an entity
+
+Deleting an entity by ID
+
+```php
+$entity = $this->repository->delete(3);
+```
+
+
 ## Events
 
 Events fired automatically in certain cases:
+
+### Create events
+
 - Before an entity is beeing created, the `\App\Events\YourModelIsCreatingEvent::class` is fired:
-    - where the `$event->attributes` property contains the creating array
-- After an entity was created, the `\App\Events\YourModelWasCreatingEvent::class` is fired:
+    - where the `$event->attributes` property contains the creating data array.
+- After an entity was created, the `\App\Events\YourModelWasCreatedEvent::class` is fired:
     - where the `$event->model` property contains the created entity,
-    - and the `$event->attributes` property contains the creating array.
+    - and the `$event->attributes` property contains the creating data array.
+
+### Update events
+
+- Before an entity is beeing updated, the `\App\Events\YourModelIsUpdatingEvent::class` is fired:
+    - where the `$event->model` property contains the original entity,
+    - and the `$event->attributes` property contains the updating data array.
+- After an entity was updated, the `\App\Events\YourModelWasUpdatedEvent::class` is fired:
+    - where the `$event->model` property contains the updated entity,
+    - and the `$event->attributes` property contains the updating data array.
+
+### Delete events
+
+- Before an entity is beeing deleted, the `\App\Events\YourModelIsDeletingEvent::class` is fired:
+    - where the `$event->model` property contains the original entity.
+- After an entity was deleted, the `\App\Events\YourModelWasDeletedEvent::class` is fired:
+    - where the `$event->model` property contains the already deleted entity.
 
 
 ## Listeners
