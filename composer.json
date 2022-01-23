@@ -1,6 +1,6 @@
 {
     "name": "maarsson/laravel-repository",
-    "description": "Repository pattern for Laravel",
+    "description": "Complete repository pattern for Laravel 8",
     "type": "package",
     "license": "MIT",
     "authors": [
