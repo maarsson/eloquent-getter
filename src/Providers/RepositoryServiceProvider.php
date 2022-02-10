@@ -3,6 +3,7 @@
 namespace Maarsson\Repository\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Maarsson\Repository\Console\Commands\MakeFilterCommand;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
 use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Repositories\EloquentRepository;
@@ -102,6 +103,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected function registerCommands(): void
     {
+        $this->commands(MakeFilterCommand::class);
         $this->commands(MakeRepositoryCommand::class);
     }
 

@@ -1,0 +1,21 @@
+<?php
+
+namespace {{filtersNamespace}};
+
+use Illuminate\Database\Eloquent\Builder;
+use Maarsson\Repository\Filters\EloquentFilter;
+
+class {{modelName}}Filter extends EloquentFilter
+{
+    /**
+     * EXAMPLE: filter by part of the name.
+     *
+     * @param string $searchString
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    // protected function name(string $searchString): Builder
+    // {
+    //    return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
+    //}
+}

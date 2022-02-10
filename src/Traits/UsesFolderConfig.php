@@ -49,6 +49,20 @@ trait UsesFolderConfig
     protected string $repositoriesNamespace;
 
     /**
+     * Container for the filters´ folder path.
+     *
+     * @var string
+     */
+    protected string $filtersFolder;
+
+    /**
+     * Container for the filters´ namespace.
+     *
+     * @var string
+     */
+    protected string $filtersNamespace;
+
+    /**
      * Container for the events´ folder path.
      *
      * @var string
@@ -158,6 +172,16 @@ trait UsesFolderConfig
     }
 
     /**
+     * Gets the filters folder path.
+     *
+     * @return string
+     */
+    protected function getFiltersFolder(): string
+    {
+        return $this->getFolder('filters');
+    }
+
+    /**
      * Gets the events folder path.
      *
      * @return string
@@ -211,6 +235,18 @@ trait UsesFolderConfig
     protected function getRepositoriesNamespace($withTrailingSlash = true): string
     {
         return $this->getNamespace('repositories', $withTrailingSlash);
+    }
+
+    /**
+     * Gets the filters namespace.
+     *
+     * @param mixed $withTrailingSlash
+     *
+     * @return string
+     */
+    protected function getFiltersNamespace($withTrailingSlash = true): string
+    {
+        return $this->getNamespace('filters', $withTrailingSlash);
     }
 
     /**
