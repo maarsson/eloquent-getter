@@ -39,7 +39,7 @@ This package adds and extendable repository pattern to your Laravel project.
     ```php
         class YourModelRepository extends EloquentRepository implements YourModelRepositoryContract
         {
-            public function doSomeConverting() 
+            public function doSomeConverting()
             {
                 // your code here
             }
@@ -113,6 +113,44 @@ Deleting an entity by ID
 ```php
 $entity = $this->repository->delete(3);
 ```
+
+
+## Filtering
+
+Entities can be easily filtered using custom filter classes. Filter keys in the request without matching function in the filter class will be ignored.
+
+1. Create filter class to your existing repository: `php artisan make:filter 'YourModel'`.
+
+2. Add the required filtering method(s) to the created `YourModelFilter ` class:
+    ```php
+    protected function name(string $searchString): Builder
+    {
+        return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
+    }
+    ```
+
+3. Add the `Maarsson\Repository\Traits\Filterable` trait to the model repository:
+    ```php
+    namespace App\Repositories;
+
+    use Maarsson\Repository\Traits\Filterable;
+
+    class YourModelRepository extends EloquentRepository implements CustomerRepositoryContract
+    {
+        use Filterable;
+    }
+    ```
+
+4. Get the filtered collection using the `filter[]` parameter in the query
+    ```php
+        // HTTP GET //localhost/yourmodel?filter[name]=foo
+        public function index(\Illuminate\Http\Request $request)
+        {
+            $this->repository
+                ->filter(new YourModelFilter($request))
+                ->get();
+        }
+    ```
 
 
 ## Events
