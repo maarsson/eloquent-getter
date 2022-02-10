@@ -2,8 +2,10 @@
 
 namespace Maarsson\Repository\Contracts;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * This interface describes an eloquent repository interface.
@@ -18,6 +20,13 @@ interface EloquentRepositoryContract
     public function model(): Model;
 
     /**
+     * Begin querying the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function builder(): Builder;
+
+    /**
      * Return with column filter array.
      *
      * @param array $columns The columns
@@ -25,6 +34,18 @@ interface EloquentRepositoryContract
      * @return array
      */
     public function columns(array $columns = []): array;
+
+    /**
+     * Paginate the given query.
+     *
+     * @param null|int $perPage
+     * @param array $columns
+     * @param string $pageName
+     * @param null|int $page
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): LengthAwarePaginator;
 
     /**
      * Gets all entity.

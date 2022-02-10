@@ -2,8 +2,10 @@
 
 namespace Maarsson\Repository\Repositories;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Maarsson\Repository\Contracts\EloquentRepositoryContract;
 use Maarsson\Repository\Traits\HasModelEvents;
 use Maarsson\Repository\Traits\UsesFolderConfig;
@@ -40,6 +42,16 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     }
 
     /**
+     * Begin querying the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function builder(): Builder
+    {
+        return $this->model()->query();
+    }
+
+    /**
      * Return with column filter array.
      *
      * @param array $columns The columns
@@ -49,6 +61,21 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     public function columns(array $columns = []): array
     {
         return empty($columns) ? ['*'] : $columns;
+    }
+
+    /**
+     * Paginate the given query.
+     *
+     * @param null|int $perPage
+     * @param array $columns
+     * @param string $pageName
+     * @param null|int $page
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate($perPage = null, $columns = ['*'], $pageName = 'page', $page = null): LengthAwarePaginator
+    {
+        return $this->builder()->paginate($perPage, $columns, $pageName, $page);
     }
 
     /**
