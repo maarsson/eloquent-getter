@@ -17,6 +17,6 @@ trait Filterable
      */
     public function filter(EloquentFilter $filter): Builder
     {
-        return $filter->apply($this->model->query());
+        return $filter->apply($this->model()->query());
     }
 }
