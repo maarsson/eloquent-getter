@@ -10,11 +10,11 @@ class {{modelName}}Filter extends EloquentFilter
     /**
      * EXAMPLE: filter by part of the name.
      *
-     * @param string $searchString
+     * @param string|null $searchString
      *
      * @return Illuminate\Database\Eloquent\Builder
      */
-    // protected function name(string $searchString): Builder
+    // protected function name(string|null $searchString): Builder
     // {
     //    return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
     //}

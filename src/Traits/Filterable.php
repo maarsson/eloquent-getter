@@ -10,12 +10,11 @@ trait Filterable
     /**
      * Scope a query to apply given filter.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
      * @param \Maarsson\Repository\Filters\EloquentFilter $filter
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return \Maarsson\Repository\Filters\EloquentFilter
      */
-    public function filter(EloquentFilter $filter): Builder
+    public function filter(EloquentFilter $filter): EloquentFilter
     {
         return $filter->apply($this->model()->query());
     }

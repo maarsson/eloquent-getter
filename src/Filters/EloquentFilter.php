@@ -4,20 +4,20 @@ namespace Maarsson\Repository\Filters;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
-use ReflectionClass;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 abstract class EloquentFilter
 {
     /**
-     * @var array
+     * @var \Illuminate\Http\Request
      */
-    protected $filter;
-    protected $request;
+    protected Request $request;
 
     /**
      * @var \Illuminate\Database\Eloquent\Builder
      */
-    protected $builder;
+    protected Builder $builder;
 
     /**
      * Filter constructor.
@@ -26,7 +26,6 @@ abstract class EloquentFilter
      */
     public function __construct(Request $request)
     {
-        $this->filter = $request->get('filter');
         $this->request = $request;
     }
 
@@ -35,36 +34,65 @@ abstract class EloquentFilter
      *
      * @param \Illuminate\Database\Eloquent\Builder $builder
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return self
      */
-    public function apply(Builder $builder)
+    public function apply(Builder $builder): self
     {
         $this->builder = $builder;
 
-        foreach ($this->getFilters() as $name => $value) {
-            if (method_exists($this, $name)) {
-                if ($value) {
-                    $this->$name($value);
-                } else {
-                    $this->$name();
-                }
-            }
-        }
+        $this->getFilters()->each(function($value, $method) {
+            $this->$method($value);
+        });
 
-        return $this->builder;
+        return $this;
     }
 
-    public function order()
+    /**
+     * Adds ordering to query
+     *
+     * @return self
+     */
+    public function get()
     {
-        return $this->orderBy(
+        return $this->builder->get();
+    }
+
+    /**
+     * Adds ordering to query
+     *
+     * @return self
+     */
+    public function order(): self
+    {
+        $this->builder->orderBy(
             $this->request->get('sort_by', 'name'),
             $this->request->get('sort_order', 'desc')
         );
+
+        return $this;
     }
 
-    public function paginate()
+    /**
+     * Adds pagination to query
+     *
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate(): LengthAwarePaginator
     {
-        return $this->paginate($this->request->get('per_page', 20));
+        return $this->builder->paginate(
+            $this->request->get('per_page', 20)
+        );
+    }
+
+    /**
+     * Get all the filters that can be applied.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    protected function getFilters(): Collection
+    {
+        return collect($this->request->get('filter'))
+                ->only($this->getFilterMethods());
     }
 
     /**
@@ -72,28 +100,12 @@ abstract class EloquentFilter
      *
      * @return array
      */
-    protected function getFilterMethods()
+    protected function getFilterMethods(): array
     {
-        $class = new ReflectionClass(static::class);
-        $methods = array_map(function ($method) use ($class) {
-            if ($method->class === $class->getName()) {
-                return $method->name;
-            }
-
-        }, $class->getMethods());
-
-        return array_filter($methods);
-    }
-
-    /**
-     * Get all the filters that can be applied.
-     *
-     * @return array
-     */
-    protected function getFilters()
-    {
-        return array_filter(
-            collect($this->filter)->only($this->getFilterMethods())->toArray()
+        return array_diff(
+            get_class_methods(static::class), // methods of filter class
+            get_class_methods(self::class) // methods of this package class
         );
     }
+
 }
