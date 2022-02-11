@@ -27,6 +27,20 @@ interface EloquentRepositoryContract
     public function builder(): Builder;
 
     /**
+     * Begin querying the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function withTrashed(): Builder;
+
+    /**
+     * Begin querying the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function onlyTrashed(): Builder;
+
+    /**
      * Return with column filter array.
      *
      * @param array $columns The columns
@@ -34,6 +48,15 @@ interface EloquentRepositoryContract
      * @return array
      */
     public function columns(array $columns = []): array;
+
+    /**
+     * Set the relationships that should be eager loaded.
+     *
+     * @param array|string $relations
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function with($relations): Builder;
 
     /**
      * Paginate the given query.
@@ -58,6 +81,33 @@ interface EloquentRepositoryContract
     public function all(string ...$columns): Collection;
 
     /**
+     * Gets the number of all entity.
+     *
+     * @return int
+     */
+    public function count(): int;
+
+    /**
+     * Gets the first entity by the timestamp.
+     * Returned columns can be filtered.
+     *
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function first(string ...$columns): ?Model;
+
+    /**
+     * Gets the last entity by the timestamp.
+     * Returned columns can be filtered.
+     *
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function last(string ...$columns);
+
+    /**
      * Creates a new entity.
      *
      * @param array $attributes
@@ -74,6 +124,17 @@ interface EloquentRepositoryContract
      * @return bool
      */
     public function delete(int|string $id): bool;
+
+    /**
+     * Deletes entities by a where query result.
+     *
+     * @param array|Closure|\Illuminate\Database\Query\Expression|string $column
+     * @param mixed $operator
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function deleteWhere($column, $operator = null, $value = null): bool;
 
     /**
      * Finds an entity by its ID.
@@ -97,6 +158,39 @@ interface EloquentRepositoryContract
      * @return Illuminate\Database\Eloquent\Collection
      */
     public function findBy(string $field, $value = null, string ...$columns): ?Collection;
+
+    /**
+     * Add a basic where clause to the query.
+     *
+     * @param array|Closure|\Illuminate\Database\Query\Expression|string $column
+     * @param mixed $operator
+     * @param mixed $value
+     * @param string $boolean
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function where($column, $operator = null, $value = null, $boolean = 'and'): Builder;
+
+    /**
+     * Add an "or where" clause to the query.
+     *
+     * @param array|Closure|\Illuminate\Database\Query\Expression|string $column
+     * @param mixed $operator
+     * @param mixed $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function orWhere($column, $operator = null, $value = null): Builder;
+
+    /**
+     * Adds an "order by" clause to the query.
+     *
+     * @param Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
+     * @param string $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function orderBy($column, $direction = 'asc'): Builder;
 
     /**
      * Updates an entity by its ID.

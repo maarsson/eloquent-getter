@@ -52,6 +52,26 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     }
 
     /**
+     * Inlcudes even soft deleted entities to query.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function withTrashed(): Builder
+    {
+        return $this->model()->withTrashed();
+    }
+
+    /**
+     * Inlcudes only soft deleted entities to query.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function onlyTrashed(): Builder
+    {
+        return $this->model()->onlyTrashed();
+    }
+
+    /**
      * Return with column filter array.
      *
      * @param array $columns The columns
@@ -61,6 +81,18 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     public function columns(array $columns = []): array
     {
         return empty($columns) ? ['*'] : $columns;
+    }
+
+    /**
+     * Set the relationships that should be eager loaded.
+     *
+     * @param string $relations
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function with(...$relations): Builder
+    {
+        return $this->builder()->with($relations);
     }
 
     /**
@@ -91,6 +123,50 @@ abstract class EloquentRepository implements EloquentRepositoryContract
         return $this->model()->all(
             $this->columns($columns)
         );
+    }
+
+    /**
+     * Gets the number of all entity.
+     *
+     * @return int
+     */
+    public function count(): int
+    {
+        return $this->builder()->count();
+    }
+
+    /**
+     * Gets the first entity by the timestamp.
+     * Returned columns can be filtered.
+     *
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function first(string ...$columns): ?Model
+    {
+        return $this->builder()
+            ->orderBy('created_at', 'asc')
+            ->first(
+                $this->columns($columns)
+            );
+    }
+
+    /**
+     * Gets the last entity by the timestamp.
+     * Returned columns can be filtered.
+     *
+     * @param string... $columns
+     *
+     * @return Illuminate\Database\Eloquent\Model
+     */
+    public function last(string ...$columns): ?Model
+    {
+        return $this->builder()
+            ->orderBy('created_at', 'desc')
+            ->first(
+                $this->columns($columns)
+            );
     }
 
     /**
@@ -132,6 +208,28 @@ abstract class EloquentRepository implements EloquentRepositoryContract
     }
 
     /**
+     * Deletes entities by a where query result.
+     *
+     * @param array|Closure|\Illuminate\Database\Query\Expression|string $column
+     * @param mixed $operator
+     * @param mixed $value
+     *
+     * @return bool
+     */
+    public function deleteWhere($column, $operator = null, $value = null): bool
+    {
+        $result = true;
+
+        $this->builder()
+            ->where($column, $operator, $value)
+            ->each(function ($entity) use ($result) {
+                $result = $result && $this->delete($entity->id);
+            });
+
+        return $result;
+    }
+
+    /**
      * Finds an entity by its ID.
      * Returned columns can be filtered.
      *
@@ -167,6 +265,48 @@ abstract class EloquentRepository implements EloquentRepositoryContract
         ->get(
             $this->columns($columns)
         );
+    }
+
+    /**
+     * Add a basic where clause to the query.
+     *
+     * @param array|Closure|\Illuminate\Database\Query\Expression|string $column
+     * @param mixed $operator
+     * @param mixed $value
+     * @param string $boolean
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function where($column, $operator = null, $value = null, $boolean = 'and'): Builder
+    {
+        return $this->builder()->where($column, $operator, $value, $boolean);
+    }
+
+    /**
+     * Add an "or where" clause to the query.
+     *
+     * @param array|Closure|\Illuminate\Database\Query\Expression|string $column
+     * @param mixed $operator
+     * @param mixed $value
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function orWhere($column, $operator = null, $value = null): Builder
+    {
+        return $this->builder()->orWhere($column, $operator, $value);
+    }
+
+    /**
+     * Adds an "order by" clause to the query.
+     *
+     * @param Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
+     * @param string $direction
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function orderBy($column, $direction = 'asc'): Builder
+    {
+        return $this->builder()->orderBy($column, $direction);
     }
 
     /**
