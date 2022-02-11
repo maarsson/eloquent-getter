@@ -65,8 +65,8 @@ abstract class EloquentFilter
     public function order(): self
     {
         $this->builder->orderBy(
-            $this->request->get('sort_by', 'name'),
-            $this->request->get('sort_order', 'desc')
+            $this->request->get('sort_by', 'id'),
+            $this->request->get('sort_order', 'asc')
         );
 
         return $this;
