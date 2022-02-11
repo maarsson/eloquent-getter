@@ -39,7 +39,7 @@ This package adds and extendable repository pattern to your Laravel project.
     ```php
         class YourModelRepository extends EloquentRepository implements YourModelRepositoryContract
         {
-            public function doSomeConverting() 
+            public function doSomeConverting()
             {
                 // your code here
             }
@@ -132,6 +132,21 @@ $this->repository->deleteWhere('value', '<', 100);
 ```
 
 
+## Paginating
+
+Laravels paginating can be applied on queries, even combinated with other queries.
+
+```php
+// simple pagination
+$this->repository
+    ->paginate($per_page = 15);
+// pagination on ordered result
+$this->repository
+    ->orderBy('name')
+    ->paginate($per_page = 15);
+```
+
+
 ## Filtering
 
 Entities can be easily filtered using custom filter classes. Filter keys in the request without matching function in the filter class will be ignored.
@@ -140,7 +155,7 @@ Entities can be easily filtered using custom filter classes. Filter keys in the 
 
 2. Add the required filtering method(s) to the created `YourModelFilter ` class:
     ```php
-    protected function name(string $searchString): Builder
+    protected function name(string|null $searchString): Builder
     {
         return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
     }
@@ -161,28 +176,36 @@ Entities can be easily filtered using custom filter classes. Filter keys in the 
 4. Get the filtered collection using the `filter[]` parameter in the query
     ```php
     // HTTP GET //localhost/yourmodel?filter[name]=foo
-    public function index(\Illuminate\Http\Request $request)
+    public function index(\App\Filters\YourModelFilter $filter)
     {
         return $this->repository
-            ->filter(new YourModelFilter($request))
+            ->filter($filter)
             ->get();
     }
     ```
 
+#### Simplified filtering and paginating
 
-## Paginating
-
-Laravels paginating can be applied on queries, even combinated with other queries.
+Get the filtered, sorted and paginated result by the helper methods.
 
 ```php
-// simple pagination
-$this->repository
-    ->paginate($per_page = 15);
-// pagination on ordered result
-$this->repository
-    ->orderBy('name')
-    ->paginate($per_page = 15);
+// HTTP GET //localhost/yourmodel?filter[name]=foo&page=5&per_page=20&sort_by=id&sort_order=desc
+public function index(\App\Filters\YourModelFilter $filter)
+{
+    return $this->repository
+        ->filter($filter)
+        ->order()
+        ->paginate();
+}
 ```
+
+The following request parameters are considered:
+- `filter[]` default: `null`
+- `page` default: `1`
+- `per_page` default: `20`
+- `sort_by`default: `'id'`
+- `sort_order`default: `'asc'`
+
 
 ## Using Eloquent Builder methods
 
@@ -223,6 +246,7 @@ $this->repository->builder()
     ->offset(10);
     ->toSql();
 ```
+
 
 ## Events
 
