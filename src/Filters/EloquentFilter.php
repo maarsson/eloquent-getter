@@ -12,6 +12,7 @@ abstract class EloquentFilter
      * @var array
      */
     protected $filter;
+    protected $request;
 
     /**
      * @var \Illuminate\Database\Eloquent\Builder
@@ -26,6 +27,7 @@ abstract class EloquentFilter
     public function __construct(Request $request)
     {
         $this->filter = $request->get('filter');
+        $this->request = $request;
     }
 
     /**
@@ -50,6 +52,19 @@ abstract class EloquentFilter
         }
 
         return $this->builder;
+    }
+
+    public function order()
+    {
+        return $this->orderBy(
+            $this->request->get('sort_by', 'name'),
+            $this->request->get('sort_order', 'desc')
+        );
+    }
+
+    public function paginate()
+    {
+        return $this->paginate($this->request->get('per_page', 20));
     }
 
     /**
