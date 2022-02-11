@@ -39,7 +39,7 @@ This package adds and extendable repository pattern to your Laravel project.
     ```php
         class YourModelRepository extends EloquentRepository implements YourModelRepositoryContract
         {
-            public function doSomeConverting()
+            public function doSomeConverting() 
             {
                 // your code here
             }
@@ -73,13 +73,24 @@ Retrieving entities by a specific column
 $collection = $this->repository->findBy('title', 'Music');
 ```
 
+Retrieving the first or last entity (by its timestamp)
+```php
+$entity = $this->repository->first();
+$entity = $this->repository->last();
+```
+
 You can also specify which columns to be fetched
 ```php
 $collection = $this->repository->all('id', 'title');
 $collection = $this->repository->find(3, 'id', 'title');
-$collection = $this->repository->findBy('title', 'Music', 'id', 'title');
+$entity = $this->repository->first('id', 'title');
+$entity = $this->repository->last('id', 'title');
 ```
 
+Retrieving the number of entities
+```php
+$count = $this->repository->count();
+```
 
 #### Creating an entity
 
@@ -111,7 +122,13 @@ $entity = $this->repository->update(
 Deleting an entity by ID
 
 ```php
-$entity = $this->repository->delete(3);
+$this->repository->delete(3);
+```
+
+Mass-deleting entities by where closure
+
+```php
+$this->repository->deleteWhere('value', '<', 100);
 ```
 
 
@@ -143,15 +160,69 @@ Entities can be easily filtered using custom filter classes. Filter keys in the 
 
 4. Get the filtered collection using the `filter[]` parameter in the query
     ```php
-        // HTTP GET //localhost/yourmodel?filter[name]=foo
-        public function index(\Illuminate\Http\Request $request)
-        {
-            $this->repository
-                ->filter(new YourModelFilter($request))
-                ->get();
-        }
+    // HTTP GET //localhost/yourmodel?filter[name]=foo
+    public function index(\Illuminate\Http\Request $request)
+    {
+        return $this->repository
+            ->filter(new YourModelFilter($request))
+            ->get();
+    }
     ```
 
+
+## Paginating
+
+Laravels paginating can be applied on queries, even combinated with other queries.
+
+```php
+// simple pagination
+$this->repository
+    ->paginate($per_page = 15);
+// pagination on ordered result
+$this->repository
+    ->orderBy('name')
+    ->paginate($per_page = 15);
+```
+
+## Using Eloquent Builder methods
+
+Certain builder methods are available directly. Note using of the getter method at the end of the query.
+
+**Sophisticated where queries:**
+```php
+$this->repository
+    ->where('value', '<', 100)
+    ->get();
+$this->repository
+    ->where('value', '>', 50)
+    ->orWhere('value', '<', 100)
+    ->get();
+```
+
+**Ordering result:**
+```php
+$this->repository->orderBy('title', 'desc')->get();
+```
+
+**Working with soft-deleted entities:**
+```php
+$this->repository->withTrashed()->get();
+$this->repository->onlyTrashed()->get();
+```
+
+**Working with relations:**
+```php
+$this->repository->with('authors')->get();
+```
+
+**Reaching native Eloquent builder:**
+```php
+$this->repository->builder()
+    ->whereIn('id', [1,2,3]);
+    ->limit(5);
+    ->offset(10);
+    ->toSql();
+```
 
 ## Events
 
