@@ -10,7 +10,7 @@ class {{modelName}}Getter extends EloquentGetter
     /**
      * EXAMPLE: filter by part of the name.
      *
-     * @param string|null $searchString
+     * @param null|string $searchString
      *
      * @return Illuminate\Database\Eloquent\Builder
      */

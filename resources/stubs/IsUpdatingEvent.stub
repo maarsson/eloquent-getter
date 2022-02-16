@@ -15,6 +15,6 @@ class {{modelName}}IsUpdatingEvent extends ModelIsUpdatingEvent
      */
     public function __construct({{modelName}} $model, array $attributes)
     {
-         parent::__construct($model, $attributes);
+        parent::__construct($model, $attributes);
     }
 }
