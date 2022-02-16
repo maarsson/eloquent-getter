@@ -147,53 +147,73 @@ $this->repository
 ```
 
 
-## Filtering
+## Getters: custom filtering and sorting
 
-Entities can be easily filtered using custom filter classes. Filter keys in the request without matching function in the filter class will be ignored.
+Entities can be easily filtered or sorted using getter classes. Filter keys and sorter methods in the request without matching function in the getter class will be ignored.
 
-1. Create filter class to your existing repository: `php artisan make:filter 'YourModel'`.
+1. Create getter class to your existing repository: `php artisan make:getter 'YourModel'`.
 
-2. Add the required filtering method(s) to the created `YourModelFilter ` class:
-    ```php
-    protected function name(string|null $searchString): Builder
-    {
-        return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
-    }
-    ```
-
-3. Add the `Maarsson\Repository\Traits\Filterable` trait to the model repository:
+2. Add the `Maarsson\Repository\Traits\Getterable` trait to the model repository:
     ```php
     namespace App\Repositories;
 
-    use Maarsson\Repository\Traits\Filterable;
+    use Maarsson\Repository\Traits\Getterable;
 
     class YourModelRepository extends EloquentRepository implements CustomerRepositoryContract
     {
-        use Filterable;
+        use Getterable;
+    }
+    ```
+
+3. Add the required filtering method(s) to the created `YourModelGetter ` class. Filter method names must be camel cased and must end with `Filter`:
+    ```php
+    protected function nameFilter(string|null $searchString): \Illuminate\Database\Eloquent\Builder
+    {
+        return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
     }
     ```
 
 4. Get the filtered collection using the `filter[]` parameter in the query
     ```php
     // HTTP GET //localhost/yourmodel?filter[name]=foo
-    public function index(\App\Filters\YourModelFilter $filter)
+    public function index(\App\Filters\YourModelGetter $getter)
     {
         return $this->repository
-            ->filter($filter)
+            ->filter($getter)
             ->get();
     }
     ```
 
-#### Simplified filtering and paginating
+5. Add the required sorting method(s) to the created `YourModelGetter ` class. Sorter method names must be camel cased and must end with `Sorter`:
+    ```php
+    protected function relatedModelDateSorter(): \Illuminate\Database\Eloquent\Builder
+    {
+        return RelatedModel::select('date')
+            ->whereColumn('this_model_column', 'related_table.column');
+    }
+    ```
+
+6. Get the sorted collection using the `sort_by` parameter in the query
+    ```php
+    // HTTP GET //localhost/yourmodel?sort_by=related_model_date
+    public function index(\App\Filters\YourModelGetter $getter)
+    {
+        return $this->repository
+            ->order($getter)
+            ->get();
+    }
+    ```
+
+#### Simplified filtering, sorting and paginating
 
 Get the filtered, sorted and paginated result by the helper methods.
 
 ```php
-// HTTP GET //localhost/yourmodel?filter[name]=foo&page=5&per_page=20&sort_by=id&sort_order=desc
-public function index(\App\Filters\YourModelFilter $filter)
+// HTTP GET //localhost/yourmodel?filter[name]=foo&page=5&per_page=20&sort_by=related_model_date&sort_order=desc
+public function index(\App\Filters\YourModelGetter $getter)
 {
     return $this->repository
-        ->filter($filter)
+        ->filter($getter)
         ->order()
         ->paginate();
 }

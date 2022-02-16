@@ -32,7 +32,7 @@ return [
         'models' => 'Models',
         'contracts' => 'Contracts',
         'repositories' => 'Repositories',
-        'filters' => 'Filters',
+        'getters' => 'Getters',
         'events' => 'Events',
         'listeners' => 'Listeners',
     ],

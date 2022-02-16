@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Maarsson\Repository\Traits\UsesFolderConfig;
 use Maarsson\Repository\Traits\UsesStubFunctions;
 
-class MakeFilterCommand extends Command
+class MakeGetterCommand extends Command
 {
     use UsesFolderConfig, UsesStubFunctions;
 
@@ -16,7 +16,7 @@ class MakeFilterCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'make:filter
+    protected $signature = 'make:getter
         {model : The model class name eg.: \'YourModel\' or \'Foo\\Bar\'}';
 
     /**
@@ -24,7 +24,7 @@ class MakeFilterCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Scaffold model filter';
+    protected $description = 'Scaffold model getter';
 
     /**
      * Execute the console command.
@@ -34,7 +34,7 @@ class MakeFilterCommand extends Command
     public function handle()
     {
         $this->setModelName()
-            ->makeFilter()
+            ->makeGetter()
             ->warnIfModelNotExists()
             ->warnIfModelNotConfigured();
     }
@@ -44,9 +44,9 @@ class MakeFilterCommand extends Command
      *
      * @return self
      */
-    protected function makeFilter(): self
+    protected function makeGetter(): self
     {
-        $this->makeClass('Filter', $this->getFiltersFolder());
+        $this->makeClass('Getter', $this->getGettersFolder());
 
         return $this;
     }
@@ -63,11 +63,11 @@ class MakeFilterCommand extends Command
         return Str::replace(
             [
                 '{{modelName}}',
-                '{{filtersNamespace}}',
+                '{{gettersNamespace}}',
             ],
             [
                 $this->modelBaseName,
-                $this->getFiltersNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getGettersNamespace(false) . $this->modelNamespaceSuffix,
             ],
             $this->getStub($stub)
         );

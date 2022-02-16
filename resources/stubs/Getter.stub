@@ -1,0 +1,32 @@
+<?php
+
+namespace {{gettersNamespace}};
+
+use Illuminate\Database\Eloquent\Builder;
+use Maarsson\Repository\Getters\EloquentGetter;
+
+class {{modelName}}Getter extends EloquentGetter
+{
+    /**
+     * EXAMPLE: filter by part of the name.
+     *
+     * @param string|null $searchString
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    // protected function filterName(string|null $searchString): Builder
+    // {
+    //    return $this->builder->where('name', 'LIKE', '%' . $searchString . '%');
+    //}
+
+    /**
+     * EXAMPLE: sorter by a related model value.
+     *
+     * @return Illuminate\Database\Eloquent\Builder
+     */
+    // protected function relatedModelDateSorter(): Builder
+    // {
+    //     return RelatedModel::select('date')
+    //         ->whereColumn('this_model_column', 'related_table.column');
+    // }
+}
