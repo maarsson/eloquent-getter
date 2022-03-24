@@ -4,7 +4,7 @@ namespace Maarsson\Repository\Traits;
 
 use Illuminate\Support\Facades\File;
 
-trait UsesStubFunctions
+trait UsesStubFunctionsTrait
 {
     /**
      * The model class given by the argument.

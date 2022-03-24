@@ -4,12 +4,12 @@ namespace Maarsson\Repository\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Maarsson\Repository\Traits\UsesFolderConfig;
-use Maarsson\Repository\Traits\UsesStubFunctions;
+use Maarsson\Repository\Traits\UsesFolderConfigTrait;
+use Maarsson\Repository\Traits\UsesStubFunctionsTrait;
 
 class MakeRepositoryCommand extends Command
 {
-    use UsesFolderConfig, UsesStubFunctions;
+    use UsesFolderConfigTrait, UsesStubFunctionsTrait;
 
     /**
      * The name and signature of the console command.
@@ -34,7 +34,7 @@ class MakeRepositoryCommand extends Command
     public function handle()
     {
         $this->setModelName()
-            ->makeRepositoryContract()
+            ->makeRepositoryInterface()
             ->makeRepository()
             ->makeEvents()
             ->makeListeners()
@@ -47,9 +47,9 @@ class MakeRepositoryCommand extends Command
      *
      * @return self
      */
-    protected function makeRepositoryContract(): self
+    protected function makeRepositoryInterface(): self
     {
-        $this->makeClass('RepositoryContract', $this->getContractsFolder());
+        $this->makeClass('RepositoryInterface', $this->getInterfacesFolder());
 
         return $this;
     }
@@ -113,7 +113,7 @@ class MakeRepositoryCommand extends Command
             [
                 '{{modelName}}',
                 '{{modelsNamespace}}',
-                '{{contractsNamespace}}',
+                '{{interfacesNamespace}}',
                 '{{repositoriesNamespace}}',
                 '{{eventsNamespace}}',
                 '{{listenersNamespace}}',
@@ -121,7 +121,7 @@ class MakeRepositoryCommand extends Command
             [
                 $this->modelBaseName,
                 $this->getModelsNamespace(false) . $this->modelNamespaceSuffix,
-                $this->getContractsNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getinterfacesNamespace(false) . $this->modelNamespaceSuffix,
                 $this->getRepositoriesNamespace(false) . $this->modelNamespaceSuffix,
                 $this->getEventsNamespace(false) . $this->modelNamespaceSuffix,
                 $this->getListenersNamespace(false) . $this->modelNamespaceSuffix,

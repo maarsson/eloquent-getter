@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Maarsson\Repository\Contracts\EloquentRepositoryContract;
-use Maarsson\Repository\Traits\HasModelEvents;
-use Maarsson\Repository\Traits\UsesFolderConfig;
+use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
+use Maarsson\Repository\Traits\HasModelEventsTrait;
+use Maarsson\Repository\Traits\UsesFolderConfigTrait;
 
-abstract class EloquentRepository implements EloquentRepositoryContract
+abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
 {
-    use HasModelEvents, UsesFolderConfig;
+    use HasModelEventsTrait, UsesFolderConfigTrait;
 
     /**
      * @var \Illuminate\Database\Eloquent\Model
@@ -194,7 +194,7 @@ abstract class EloquentRepository implements EloquentRepositoryContract
      *
      * @return bool
      */
-    public function delete(int|string $id) : bool
+    public function delete(int|string $id): bool
     {
         $model = $this->model()->find($id);
 

@@ -5,7 +5,7 @@ namespace Maarsson\Repository\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-trait HasModelEvents
+trait HasModelEventsTrait
 {
     /**
      * List of available repository event types.

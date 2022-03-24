@@ -4,7 +4,7 @@ namespace Maarsson\Repository\Traits;
 
 use Illuminate\Support\Str;
 
-trait UsesFolderConfig
+trait UsesFolderConfigTrait
 {
     /**
      * Container for the models´ folder path.
@@ -21,18 +21,18 @@ trait UsesFolderConfig
     protected string $modelsNamespace;
 
     /**
-     * Container for the contracts´ folder path.
+     * Container for the interfaces´ folder path.
      *
      * @var string
      */
-    protected string $contractsFolder;
+    protected string $interfacesFolder;
 
     /**
-     * Container for the contracts´ namespace.
+     * Container for the interfaces´ namespace.
      *
      * @var string
      */
-    protected string $contractsNamespace;
+    protected string $interfacesNamespace;
 
     /**
      * Container for the repositories´ folder path.
@@ -152,13 +152,13 @@ trait UsesFolderConfig
     }
 
     /**
-     * Gets the contracts folder path.
+     * Gets the interfaces folder path.
      *
      * @return string
      */
-    protected function getContractsFolder(): string
+    protected function getInterfacesFolder(): string
     {
-        return $this->getFolder('contracts');
+        return $this->getFolder('interfaces');
     }
 
     /**
@@ -214,15 +214,15 @@ trait UsesFolderConfig
     }
 
     /**
-     * Gets the contracts namespace.
+     * Gets the interfaces namespace.
      *
      * @param mixed $withTrailingSlash
      *
      * @return string
      */
-    protected function getContractsNamespace($withTrailingSlash = true): string
+    protected function getinterfacesNamespace($withTrailingSlash = true): string
     {
-        return $this->getNamespace('contracts', $withTrailingSlash);
+        return $this->getNamespace('interfaces', $withTrailingSlash);
     }
 
     /**
@@ -286,15 +286,15 @@ trait UsesFolderConfig
     }
 
     /**
-     * Determines if the given contract class exists.
+     * Determines if the given interface class exists.
      *
      * @param string $class
      *
      * @return bool true if class exists, False otherwise
      */
-    protected function contractExists(string $class): bool
+    protected function interfaceExists(string $class): bool
     {
-        return $this->classExists('contracts', $class);
+        return $this->classExists('interfaces', $class);
     }
 
     /**

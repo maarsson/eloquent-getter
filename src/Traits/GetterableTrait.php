@@ -4,7 +4,7 @@ namespace Maarsson\Repository\Traits;
 
 use Maarsson\Repository\Getters\EloquentGetter;
 
-trait Getterable
+trait GetterableTrait
 {
     /**
      * Scope a query to apply given filter.

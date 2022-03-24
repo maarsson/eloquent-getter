@@ -1,6 +1,6 @@
 <?php
 
-namespace Maarsson\Repository\Contracts;
+namespace Maarsson\Repository\Interfaces;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -10,7 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 /**
  * This interface describes an eloquent repository interface.
  */
-interface EloquentRepositoryContract
+interface EloquentRepositoryInterface
 {
     /**
      * Creates a new model instance.

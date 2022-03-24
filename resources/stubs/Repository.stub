@@ -2,11 +2,11 @@
 
 namespace {{repositoriesNamespace}};
 
-use {{contractsNamespace}}\{{modelName}}RepositoryContract;
+use {{interfacesNamespace}}\{{modelName}}RepositoryInterface;
 use {{modelsNamespace}}\{{modelName}};
-use Maarsson\Repository\Repositories\EloquentRepository;
+use Maarsson\Repository\Repositories\AbstractEloquentRepository;
 
-class {{modelName}}Repository extends EloquentRepository implements {{modelName}}RepositoryContract
+class {{modelName}}Repository extends AbstractEloquentRepository implements {{modelName}}RepositoryInterface
 {
     /**
      * Creates a new instance.
@@ -22,6 +22,6 @@ class {{modelName}}Repository extends EloquentRepository implements {{modelName}
      * Here can you place custom methods only for this repository.
      *
      * Don´t forget to also add the methods declarations to the
-     * {{contractsNamespace}}\{{modelName}}RepositoryContract interface
+     * {{interfacesNamespace}}\{{modelName}}RepositoryInterface interface
      */
 }

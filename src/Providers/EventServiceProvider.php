@@ -3,12 +3,12 @@
 namespace Maarsson\Repository\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Maarsson\Repository\Traits\HasModelEvents;
-use Maarsson\Repository\Traits\UsesFolderConfig;
+use Maarsson\Repository\Traits\HasModelEventsTrait;
+use Maarsson\Repository\Traits\UsesFolderConfigTrait;
 
 class EventServiceProvider extends ServiceProvider
 {
-    use HasModelEvents, UsesFolderConfig;
+    use HasModelEventsTrait, UsesFolderConfigTrait;
 
     /**
      * The event listener mappings for the application.

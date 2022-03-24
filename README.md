@@ -22,13 +22,13 @@ This package adds and extendable repository pattern to your Laravel project.
 
 3. Use dependency injection in your code:
     ```php
-    use App\Contracts\YourModelRepositoryContract;
+    use App\Interfaces\YourModelRepositoryInterface;
 
     class TestController extends Controller
     {
         private $repository;
 
-        public function __construct(YourModelRepositoryContract $repository)
+        public function __construct(YourModelRepositoryInterface $repository)
         {
             $this->repository = $repository;
         }
@@ -37,7 +37,7 @@ This package adds and extendable repository pattern to your Laravel project.
 
 3. Optionally you can add custom methods to the repository:
     ```php
-        class YourModelRepository extends EloquentRepository implements YourModelRepositoryContract
+        class YourModelRepository extends AbstractEloquentRepository implements YourModelRepositoryInterface
         {
             public function doSomeConverting()
             {
@@ -47,7 +47,7 @@ This package adds and extendable repository pattern to your Laravel project.
     ```
     and also to the interface class:
     ```php
-        interface YourModelRepositoryContract
+        interface YourModelRepositoryInterface
         {
             public function doSomeConverting();
         }
@@ -153,15 +153,15 @@ Entities can be easily filtered or sorted using getter classes. Filter keys and 
 
 1. Create getter class to your existing repository: `php artisan make:getter 'YourModel'`.
 
-2. Add the `Maarsson\Repository\Traits\Getterable` trait to the model repository:
+2. Add the `Maarsson\Repository\Traits\GetterableTrait` trait to the model repository:
     ```php
     namespace App\Repositories;
 
-    use Maarsson\Repository\Traits\Getterable;
+    use Maarsson\Repository\Traits\GetterableTrait;
 
-    class YourModelRepository extends EloquentRepository implements CustomerRepositoryContract
+    class YourModelRepository extends AbstractEloquentRepository implements CustomerRepositoryInterface
     {
-        use Getterable;
+        use GetterableTrait;
     }
     ```
 

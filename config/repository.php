@@ -30,7 +30,7 @@ return [
 
     'folders' => [
         'models' => 'Models',
-        'contracts' => 'Contracts',
+        'interfaces' => 'Interfaces',
         'repositories' => 'Repositories',
         'getters' => 'Getters',
         'events' => 'Events',

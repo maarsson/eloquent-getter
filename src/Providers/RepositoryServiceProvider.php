@@ -5,13 +5,13 @@ namespace Maarsson\Repository\Providers;
 use Illuminate\Support\ServiceProvider;
 use Maarsson\Repository\Console\Commands\MakeGetterCommand;
 use Maarsson\Repository\Console\Commands\MakeRepositoryCommand;
-use Maarsson\Repository\Contracts\EloquentRepositoryContract;
-use Maarsson\Repository\Repositories\EloquentRepository;
-use Maarsson\Repository\Traits\UsesFolderConfig;
+use Maarsson\Repository\Interfaces\EloquentRepositoryInterface;
+use Maarsson\Repository\Repositories\AbstractEloquentRepository;
+use Maarsson\Repository\Traits\UsesFolderConfigTrait;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
-    use  UsesFolderConfig;
+    use UsesFolderConfigTrait;
 
     /**
      * Bootstrap any package services.
@@ -66,7 +66,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     protected function registerBindings(): void
     {
-        $this->app->bind(EloquentRepositoryContract::class, EloquentRepository::class);
+        $this->app->bind(EloquentRepositoryInterface::class, AbstractEloquentRepository::class);
 
         collect(config('repository.models'))->each(
             fn ($model) => $this->registerBinding($model)
@@ -85,13 +85,13 @@ class RepositoryServiceProvider extends ServiceProvider
         if (
             ! $this->modelExists($model)
             || ! $this->repositoryExists($model . 'Repository')
-            || ! $this->contractExists($model . 'RepositoryContract')
+            || ! $this->interfaceExists($model . 'RepositoryInterface')
         ) {
             return;
         }
 
         $this->app->bind(
-            $this->getContractsNamespace() . $model . 'RepositoryContract',
+            $this->getinterfacesNamespace() . $model . 'RepositoryInterface',
             $this->getRepositoriesNamespace() . $model . 'Repository',
         );
     }

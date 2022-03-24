@@ -4,12 +4,12 @@ namespace Maarsson\Repository\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Maarsson\Repository\Traits\UsesFolderConfig;
-use Maarsson\Repository\Traits\UsesStubFunctions;
+use Maarsson\Repository\Traits\UsesFolderConfigTrait;
+use Maarsson\Repository\Traits\UsesStubFunctionsTrait;
 
 class MakeGetterCommand extends Command
 {
-    use UsesFolderConfig, UsesStubFunctions;
+    use UsesFolderConfigTrait, UsesStubFunctionsTrait;
 
     /**
      * The name and signature of the console command.
