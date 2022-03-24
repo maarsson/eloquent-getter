@@ -174,11 +174,13 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      *
      * @param array $attributes
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return false|Illuminate\Database\Eloquent\Model
      */
-    public function create(array $attributes): Model
+    public function create(array $attributes): false|Model
     {
-        event(new $this->events['IsCreating']($attributes));
+        if (empty(event(new $this->events['IsCreating']($attributes)))) {
+            return false;
+        }
 
         $model = $this->model()->create($attributes);
 
@@ -198,7 +200,9 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
     {
         $model = $this->model()->find($id);
 
-        event(new $this->events['IsDeleting']($model));
+        if (empty(event(new $this->events['IsDeleting']($model)))) {
+            return false;
+        }
 
         $result = $model->delete();
 
@@ -321,7 +325,9 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
     {
         $model = $this->model()->find($id);
 
-        event(new $this->events['IsUpdating']($model, $attributes));
+        if (empty(event(new $this->events['IsUpdating']($model, $attributes)))) {
+            return false;
+        }
 
         $result = $model->update($attributes);
 
