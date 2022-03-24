@@ -38,7 +38,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      */
     public function model(): Model
     {
-        return new $this->model;
+        return new $this->model();
     }
 
     /**
