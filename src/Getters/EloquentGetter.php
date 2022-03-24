@@ -88,7 +88,7 @@ abstract class EloquentGetter
     }
 
     /**
-     * Adds pagination to query and gets the result
+     * Adds pagination to query and gets the result.
      *
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */

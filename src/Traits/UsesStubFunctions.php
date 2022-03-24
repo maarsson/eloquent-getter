@@ -3,7 +3,6 @@
 namespace Maarsson\Repository\Traits;
 
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Str;
 
 trait UsesStubFunctions
 {
@@ -24,14 +23,14 @@ trait UsesStubFunctions
     /**
      * The relative namespace for the model within the \App\Models namespace.
      *
-     * @var string|null
+     * @var null|string
      */
     protected ?string $modelNamespaceSuffix;
 
     /**
      * The relative path to the model within the app/Models folder.
      *
-     * @var string|null
+     * @var null|string
      */
     protected ?string $modelPathSuffix;
 
@@ -134,7 +133,6 @@ trait UsesStubFunctions
 
         $this->info('Class `' . $file . '` was created.');
     }
-
 
     /**
      * Gets the stub skeleton.
