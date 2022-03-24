@@ -305,6 +305,8 @@ Event listeners automatically sets up for the events with the same naming conven
 
 ...and so on.
 
+If a listeners `handle()` method of a before-event returns `false` it will prohibit the given action.
+
 
 ## License
 
