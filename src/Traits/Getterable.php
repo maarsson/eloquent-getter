@@ -2,7 +2,6 @@
 
 namespace Maarsson\Repository\Traits;
 
-use Illuminate\Database\Eloquent\Builder;
 use Maarsson\Repository\Getters\EloquentGetter;
 
 trait Getterable
