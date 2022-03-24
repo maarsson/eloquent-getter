@@ -13,7 +13,7 @@ trait Getterable
      *
      * @return \Maarsson\Repository\Filters\EloquentGetter
      */
-    public function filter(EloquentGetter $getter = null): EloquentGetter
+    public function filter(?EloquentGetter $getter = null): EloquentGetter
     {
         return $getter->apply($this->model()->query())->filter();
     }
@@ -25,7 +25,7 @@ trait Getterable
      *
      * @return \Maarsson\Repository\Filters\EloquentGetter
      */
-    public function order(EloquentGetter $getter = null): EloquentGetter
+    public function order(?EloquentGetter $getter = null): EloquentGetter
     {
         return $getter->apply($this->model()->query())->order();
     }
