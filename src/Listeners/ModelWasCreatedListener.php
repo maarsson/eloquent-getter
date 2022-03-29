@@ -17,7 +17,7 @@ class ModelWasCreatedListener
     /**
      * Handle the event.
      *
-     * @param Maarsson\Repository\Events\ModelWasCreated $event
+     * @param \Maarsson\Repository\Events\ModelWasCreated $event
      */
     public function handle(ModelWasCreatedEvent $event)
     {

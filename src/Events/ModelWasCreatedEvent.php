@@ -14,7 +14,7 @@ class ModelWasCreatedEvent
     /**
      * The model instance.
      *
-     * @var Illuminate\Database\Eloquent\Model
+     * @var \Illuminate\Database\Eloquent\Model
      */
     public Model $model;
 
@@ -28,7 +28,7 @@ class ModelWasCreatedEvent
     /**
      * Create a new event instance.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      * @param array $attributes
      */
     public function __construct(Model $model, array $attributes)

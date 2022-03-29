@@ -22,7 +22,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
     /**
      * Creates a new instance.
      *
-     * @param Illuminate\Database\Eloquent\Model $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      */
     public function __construct(Model $model)
     {
@@ -116,7 +116,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      *
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function all(string ...$columns): Collection
     {
@@ -141,7 +141,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      *
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function first(string ...$columns): ?Model
     {
@@ -158,7 +158,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      *
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function last(string ...$columns): ?Model
     {
@@ -174,7 +174,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      *
      * @param array $attributes
      *
-     * @return false|Illuminate\Database\Eloquent\Model
+     * @return false|\Illuminate\Database\Eloquent\Model
      */
     public function create(array $attributes): false|Model
     {
@@ -240,7 +240,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      * @param int|string $id
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function find(int|string $id, string ...$columns): ?Model
     {
@@ -258,7 +258,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
      * @param null|mixed $value The searched value
      * @param string... $columns
      *
-     * @return Illuminate\Database\Eloquent\Collection
+     * @return \Illuminate\Database\Eloquent\Collection
      */
     public function findBy(string $field, $value = null, string ...$columns): ?Collection
     {

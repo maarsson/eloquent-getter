@@ -12,7 +12,7 @@ class {{modelName}}Getter extends EloquentGetter
      *
      * @param null|string $searchString
      *
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     // protected function filterName(string|null $searchString): Builder
     // {
@@ -22,7 +22,7 @@ class {{modelName}}Getter extends EloquentGetter
     /**
      * EXAMPLE: sorter by a related model value.
      *
-     * @return Illuminate\Database\Eloquent\Builder
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     // protected function relatedModelDateSorter(): Builder
     // {

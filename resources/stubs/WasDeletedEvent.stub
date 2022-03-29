@@ -10,7 +10,7 @@ class {{modelName}}WasDeletedEvent extends ModelWasDeletedEvent
     /**
      * Create a new event instance.
      *
-     * @param {{modelsNamespace}}\{{modelName}} $model
+     * @param \{{modelsNamespace}}\{{modelName}} $model
      */
     public function __construct({{modelName}} $model)
     {

@@ -11,7 +11,7 @@ class {{modelName}}Repository extends AbstractEloquentRepository implements {{mo
     /**
      * Creates a new instance.
      *
-     * @param {{modelsNamespace}}\{{modelName}} $model
+     * @param \{{modelsNamespace}}\{{modelName}} $model
      */
     public function __construct({{modelName}} $model)
     {

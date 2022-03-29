@@ -17,7 +17,7 @@ class ModelIsUpdatingListener
     /**
      * Handle the event.
      *
-     * @param Maarsson\Repository\Events\ModelIsUpdatingEvent $event
+     * @param \Maarsson\Repository\Events\ModelIsUpdatingEvent $event
      */
     public function handle(ModelIsUpdatingEvent $event)
     {

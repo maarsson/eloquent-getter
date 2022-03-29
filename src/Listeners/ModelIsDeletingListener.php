@@ -17,7 +17,7 @@ class ModelIsDeletingListener
     /**
      * Handle the event.
      *
-     * @param Maarsson\Repository\Events\ModelIsDeletingEvent $event
+     * @param \Maarsson\Repository\Events\ModelIsDeletingEvent $event
      */
     public function handle(ModelIsDeletingEvent $event)
     {

@@ -10,7 +10,7 @@ class {{modelName}}IsUpdatingEvent extends ModelIsUpdatingEvent
     /**
      * Create a new event instance.
      *
-     * @param {{modelsNamespace}}\{{modelName}} $model
+     * @param \{{modelsNamespace}}\{{modelName}} $model
      * @param array $attributes
      */
     public function __construct({{modelName}} $model, array $attributes)
