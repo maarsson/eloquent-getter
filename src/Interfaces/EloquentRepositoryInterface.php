@@ -105,7 +105,7 @@ interface EloquentRepositoryInterface
      *
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function last(string ...$columns);
+    public function last(string ...$columns): ?Model;
 
     /**
      * Creates a new entity.
