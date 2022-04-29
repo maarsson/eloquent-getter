@@ -46,7 +46,7 @@ trait EloquentAttributeFilterTrait
     private function getValidAttributes()
     {
         return collect($this->withAttributes)->map(function ($attribute) {
-            return explode(':', $attribute)[0];
+            return explode('.', explode(':', $attribute)[0])[0];
         })->toArray();
     }
 }
