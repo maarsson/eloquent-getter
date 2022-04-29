@@ -30,7 +30,7 @@ trait EloquentAttributeFilterTrait
             $this->toArray()
             :
             $this->with($this->getValidRelations())
-                ->first()
+                ->find($this->id)
                 ->only($this->getValidAttributes());
     }
 
