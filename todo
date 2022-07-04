@@ -1,2 +1,0 @@
--2 refactor command: file and stub parameters must be File:: instances
--2 refactor event provider: pass model instance to the register
