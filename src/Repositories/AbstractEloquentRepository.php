@@ -86,7 +86,7 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
     /**
      * Set the relationships that should be eager loaded.
      *
-     * @param string|array $relations
+     * @param array|string $relations
      *
      * @return \Illuminate\Database\Eloquent\Builder
      */
