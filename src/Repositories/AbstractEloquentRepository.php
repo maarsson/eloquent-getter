@@ -266,9 +266,9 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
             $field,
             $value
         )
-        ->get(
-            $this->columns($columns)
-        );
+            ->get(
+                $this->columns($columns)
+            );
     }
 
     /**

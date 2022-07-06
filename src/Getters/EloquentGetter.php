@@ -165,8 +165,8 @@ abstract class EloquentGetter
     protected function hasColumn(string $column): bool
     {
         return $this->builder->getConnection()
-           ->getSchemaBuilder()
-           ->hasColumn($this->builder->getModel()->getTable(), $column);
+            ->getSchemaBuilder()
+            ->hasColumn($this->builder->getModel()->getTable(), $column);
     }
 
     /**
