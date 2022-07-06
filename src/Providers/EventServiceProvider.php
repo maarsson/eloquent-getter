@@ -54,9 +54,7 @@ class EventServiceProvider extends ServiceProvider
 
         collect($this->events)->each(
             function ($class, $event) {
-                $this->listen[
-                    $this->events[$event]
-                ] = [
+                $this->listen[$this->events[$event]] = [
                     $this->listeners[$event],
                 ];
             }
