@@ -121,7 +121,7 @@ class MakeRepositoryCommand extends Command
             [
                 $this->modelBaseName,
                 $this->getModelsNamespace(false) . $this->modelNamespaceSuffix,
-                $this->getinterfacesNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getInterfacesNamespace(false) . $this->modelNamespaceSuffix,
                 $this->getRepositoriesNamespace(false) . $this->modelNamespaceSuffix,
                 $this->getEventsNamespace(false) . $this->modelNamespaceSuffix,
                 $this->getListenersNamespace(false) . $this->modelNamespaceSuffix,

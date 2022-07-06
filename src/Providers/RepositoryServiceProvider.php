@@ -91,7 +91,7 @@ class RepositoryServiceProvider extends ServiceProvider
         }
 
         $this->app->bind(
-            $this->getinterfacesNamespace() . $model . 'RepositoryInterface',
+            $this->getInterfacesNamespace() . $model . 'RepositoryInterface',
             $this->getRepositoriesNamespace() . $model . 'Repository',
         );
     }

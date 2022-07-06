@@ -220,7 +220,7 @@ trait UsesFolderConfigTrait
      *
      * @return string
      */
-    protected function getinterfacesNamespace($withTrailingSlash = true): string
+    protected function getInterfacesNamespace($withTrailingSlash = true): string
     {
         return $this->getNamespace('interfaces', $withTrailingSlash);
     }
