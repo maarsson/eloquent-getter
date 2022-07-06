@@ -2,6 +2,8 @@
 
 This package adds and extendable repository pattern to your Laravel project.
 
+Though using repository pattern over Eloquent models may be an outworn idea, you can make your Laravel project code clean with a bunch of built-in functions of this package.
+
 
 ## Installation
 
@@ -225,6 +227,44 @@ The following request parameters are considered:
 - `per_page` default: `20`
 - `sort_by`default: `'id'`
 - `sort_order`default: `'asc'`
+
+
+## Attribute (and relation) filter
+
+Using the attribute filter trait you can control the model attributes to be fetched, including the relations (and its attributes).
+
+1. Add the `Maarsson\Repository\Traits\EloquentAttributeFilterTrait` trait to the Eloquent model:
+    ```php
+    namespace App\Models;
+
+    use Maarsson\Repository\Traits\EloquentAttributeFilterTrait;
+
+    class YourModel extends Model
+    {
+        use EloquentAttributeFilterTrait;
+    }
+    ```
+
+2. Get full control of the appended attributes and relations using a simple dot-notated array passed to the `withAttributes()` method. In this example you can also see how to combine this with the pagination.
+    ```php
+    // HTTP GET //localhost/yourmodel?filter[name]=foo&page=5&per_page=20&sort_by=related_model_date&sort_order=desc
+    public function index(\App\Filters\YourModelGetter $getter)
+    {
+        return $this->repository
+            ->filter($getter)
+            ->order()
+            ->paginate();
+            ->through(
+                fn ($item) => $item->withAttributes([
+                    'id',
+                    'name', // a model property
+                    'finalPrice', // even a model accessor
+                    'users' // a relation (with all of its attributes)
+                    'users.posts:id,title', // a relations relation (with limited attributes)
+                ])
+            );
+    }
+    ```
 
 
 ## Using Eloquent Builder methods
