@@ -3,9 +3,9 @@
 namespace {{gettersNamespace}};
 
 use Illuminate\Database\Eloquent\Builder;
-use Maarsson\Repository\Getters\EloquentGetter;
+use Maarsson\Repository\Getters\AbstractEloquentGetter;
 
-class {{modelName}}Getter extends EloquentGetter
+class {{modelName}}Getter extends AbstractEloquentGetter
 {
     /**
      * EXAMPLE: filter by part of the name.

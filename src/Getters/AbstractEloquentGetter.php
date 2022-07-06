@@ -8,7 +8,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
-abstract class EloquentGetter
+abstract class AbstractEloquentGetter
 {
     /**
      * @var \Illuminate\Http\Request

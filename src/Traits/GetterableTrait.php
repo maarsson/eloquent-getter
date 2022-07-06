@@ -2,18 +2,18 @@
 
 namespace Maarsson\Repository\Traits;
 
-use Maarsson\Repository\Getters\EloquentGetter;
+use Maarsson\Repository\Getters\AbstractEloquentGetter;
 
 trait GetterableTrait
 {
     /**
      * Scope a query to apply given filter.
      *
-     * @param \Maarsson\Repository\Filters\EloquentGetter $filter
+     * @param \Maarsson\Repository\Filters\AbstractEloquentGetter $filter
      *
-     * @return \Maarsson\Repository\Filters\EloquentGetter
+     * @return \Maarsson\Repository\Filters\AbstractEloquentGetter
      */
-    public function filter(?EloquentGetter $getter = null): EloquentGetter
+    public function filter(?AbstractEloquentGetter $getter = null): AbstractEloquentGetter
     {
         return $getter->apply($this->model()->query())->filter();
     }
@@ -21,11 +21,11 @@ trait GetterableTrait
     /**
      * Scope a query to apply given sorter.
      *
-     * @param \Maarsson\Repository\Filters\EloquentGetter $filter
+     * @param \Maarsson\Repository\Filters\AbstractEloquentGetter $filter
      *
-     * @return \Maarsson\Repository\Filters\EloquentGetter
+     * @return \Maarsson\Repository\Filters\AbstractEloquentGetter
      */
-    public function order(?EloquentGetter $getter = null): EloquentGetter
+    public function order(?AbstractEloquentGetter $getter = null): AbstractEloquentGetter
     {
         return $getter->apply($this->model()->query())->order();
     }
