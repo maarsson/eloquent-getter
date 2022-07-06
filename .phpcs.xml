@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="PHP_CodeSniffer" xsi:noNamespaceSchemaLocation="phpcs.xsd">
+    <description>PHP_CodeSniffer custom ruleset</description>
+    <!--
+        For configurable rules see:
+        https://github.com/squizlabs/PHP_CodeSniffer/wiki/Customisable-Sniff-Properties#genericarraysarrayindent
+    -->
+    <arg name="colors"/>
+    <arg name="extensions" value="php" />
+    <arg value="n"/>
+
+    <exclude-pattern>./bootstrap</exclude-pattern>
+    <exclude-pattern>./node_modules</exclude-pattern>
+    <exclude-pattern>./storage</exclude-pattern>
+    <exclude-pattern>./tests</exclude-pattern>
+    <exclude-pattern>./vendor</exclude-pattern>
+    <exclude-pattern>./resources</exclude-pattern>
+    <exclude-pattern>./public/index.php</exclude-pattern>
+    <exclude-pattern>./server.php</exclude-pattern>
+
+    <rule ref="PSR2">
+        <exclude name="PSR2.ControlStructures.ControlStructureSpacing" />
+    </rule>
+    <rule ref="PSR12">
+        <!-- Skip: Each imported trait must have its own "use" import statement -->
+        <exclude name="PSR12.Traits.UseDeclaration" />
+    </rule>
+    <rule ref="Generic">
+        <exclude name="Generic.Arrays.DisallowShortArraySyntax" />
+        <exclude name="Generic.Classes.OpeningBraceSameLine" />
+        <exclude name="Generic.Files.EndFileNoNewline" />
+        <exclude name="Generic.Files.LowercasedFilename" />
+        <exclude name="Generic.Formatting.MultipleStatementAlignment" />
+        <exclude name="Generic.Formatting.NoSpaceAfterCast" />
+        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie" />
+        <exclude name="Generic.PHP.ClosingPHPTag" />
+        <exclude name="Generic.PHP.RequireStrictTypes" />
+        <exclude name="Generic.PHP.UpperCaseConstant" />
+        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent" />
+    </rule>
+    <rule ref="PEAR">
+        <exclude name="PEAR" />
+    </rule>
+    <rule ref="Squiz">
+        <exclude name="Squiz.Arrays.ArrayDeclaration" />
+        <exclude name="Squiz.Commenting.BlockComment" />
+        <exclude name="Squiz.Commenting.ClassComment" />
+        <exclude name="Squiz.Commenting.ClosingDeclarationComment" />
+        <exclude name="Squiz.Commenting.FileComment" />
+        <exclude name="Squiz.Commenting.FunctionComment" />
+        <exclude name="Squiz.Commenting.InlineComment" />
+        <exclude name="Squiz.Commenting.PostStatementComment" />
+        <exclude name="Squiz.Commenting.VariableComment" />
+        <exclude name="Squiz.ControlStructures.InlineIfDeclaration" />
+        <exclude name="Squiz.Files.FileExtension.ClassFound" />
+        <exclude name="Squiz.Formatting.OperatorBracket" />
+        <exclude name="Squiz.NamingConventions.ValidVariableName" />
+        <exclude name="Squiz.Objects.ObjectInstantiation" />
+        <exclude name="Squiz.Operators.ComparisonOperatorUsage" />
+        <exclude name="Squiz.PHP.DisallowBooleanStatement" />
+        <exclude name="Squiz.PHP.DisallowComparisonAssignment" />
+        <exclude name="Squiz.PHP.DisallowInlineIf" />
+        <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace" />
+    </rule>
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.FunctionSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="spacingBeforeFirst" value="0" />
+            <property name="spacingAfterLast" value="0" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.MemberVarSpacing">
+        <properties>
+            <property name="spacing" value="1" />
+            <property name="spacingBeforeFirst" value="0" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.ObjectOperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
+</ruleset>
