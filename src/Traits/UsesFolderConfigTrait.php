@@ -111,16 +111,28 @@ trait UsesFolderConfigTrait
      * Gets the namespace for the given type.
      *
      * @param string $type
-     * @param bool $withTrailingSlash
      *
      * @return string
      */
-    protected function getNamespace(string $type, bool $withTrailingSlash = true): string
+    protected function getNamespace(string $type): string
+    {
+        return $this->getNamespaceWithoutTrailingSlash($type) . '\\';
+    }
+
+    /**
+     * Gets the namespace for the given type
+     * without trailing slash.
+     *
+     * @param string $type
+     *
+     * @return string
+     */
+    protected function getNamespaceWithoutTrailingSlash(string $type): string
     {
         if (empty($this->{$type . 'Namespace'})) {
             $this->{$type . 'Namespace'} = config('repository.folders.' . $type, ucfirst($type));
             $this->{$type . 'Namespace'} = $this->toNamespaceFormat($this->{$type . 'Namespace'});
-            $this->{$type . 'Namespace'} = 'App\\' . $this->{$type . 'Namespace'} . ($withTrailingSlash ? '\\' : '');
+            $this->{$type . 'Namespace'} = 'App\\' . $this->{$type . 'Namespace'};
         }
 
         return $this->{$type . 'Namespace'};
@@ -204,73 +216,127 @@ trait UsesFolderConfigTrait
     /**
      * Gets the models namespace.
      *
-     * @param mixed $withTrailingSlash
+     * @return string
+     */
+    protected function getModelsNamespace(): string
+    {
+        return $this->getNamespace('models');
+    }
+
+    /**
+     * Gets the models namespace
+     * without trailing slash.
      *
      * @return string
      */
-    protected function getModelsNamespace($withTrailingSlash = true): string
+    protected function getModelsNamespaceWithoutTrailingSlash(): string
     {
-        return $this->getNamespace('models', $withTrailingSlash);
+        return $this->getNamespaceWithoutTrailingSlash('models');
     }
 
     /**
      * Gets the interfaces namespace.
      *
-     * @param mixed $withTrailingSlash
+     * @return string
+     */
+    protected function getInterfacesNamespace(): string
+    {
+        return $this->getNamespace('interfaces');
+    }
+
+    /**
+     * Gets the interfaces namespace
+     * without trailing slash.
      *
      * @return string
      */
-    protected function getInterfacesNamespace($withTrailingSlash = true): string
+    protected function getInterfacesNamespaceWithoutTrailingSlash(): string
     {
-        return $this->getNamespace('interfaces', $withTrailingSlash);
+        return $this->getNamespaceWithoutTrailingSlash('interfaces');
     }
 
     /**
      * Gets the repositories namespace.
      *
-     * @param mixed $withTrailingSlash
+     * @return string
+     */
+    protected function getRepositoriesNamespace(): string
+    {
+        return $this->getNamespace('repositories');
+    }
+
+    /**
+     * Gets the repositories namespace
+     * without trailing slash.
      *
      * @return string
      */
-    protected function getRepositoriesNamespace($withTrailingSlash = true): string
+    protected function getRepositoriesNamespaceWithoutTrailingSlash(): string
     {
-        return $this->getNamespace('repositories', $withTrailingSlash);
+        return $this->getNamespaceWithoutTrailingSlash('repositories');
     }
 
     /**
      * Gets the getters namespace.
      *
-     * @param mixed $withTrailingSlash
+     * @return string
+     */
+    protected function getGettersNamespace(): string
+    {
+        return $this->getNamespace('getters');
+    }
+
+    /**
+     * Gets the getters namespace
+     * without trailing slash.
      *
      * @return string
      */
-    protected function getGettersNamespace($withTrailingSlash = true): string
+    protected function getGettersNamespaceWithoutTrailingSlash(): string
     {
-        return $this->getNamespace('getters', $withTrailingSlash);
+        return $this->getNamespaceWithoutTrailingSlash('getters');
     }
 
     /**
      * Gets the events namespace.
      *
-     * @param mixed $withTrailingSlash
+     * @return string
+     */
+    protected function getEventsNamespace(): string
+    {
+        return $this->getNamespace('events');
+    }
+
+    /**
+     * Gets the events namespace
+     * without trailing slash.
      *
      * @return string
      */
-    protected function getEventsNamespace($withTrailingSlash = true): string
+    protected function getEventsNamespaceWithoutTrailingSlash(): string
     {
-        return $this->getNamespace('events', $withTrailingSlash);
+        return $this->getNamespaceWithoutTrailingSlash('events');
     }
 
     /**
      * Gets the listeners namespace.
      *
-     * @param mixed $withTrailingSlash
+     * @return string
+     */
+    protected function getListenersNamespace(): string
+    {
+        return $this->getNamespace('listeners');
+    }
+
+    /**
+     * Gets the listeners namespace
+     * without trailing slash.
      *
      * @return string
      */
-    protected function getListenersNamespace($withTrailingSlash = true): string
+    protected function getListenersNamespaceWithoutTrailingSlash(): string
     {
-        return $this->getNamespace('listeners', $withTrailingSlash);
+        return $this->getNamespaceWithoutTrailingSlash('listeners');
     }
 
     /**

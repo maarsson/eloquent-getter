@@ -67,7 +67,7 @@ class MakeGetterCommand extends Command
             ],
             [
                 $this->modelBaseName,
-                $this->getGettersNamespace(false) . $this->modelNamespaceSuffix,
+                $this->getGettersNamespaceWithoutTrailingSlash() . $this->modelNamespaceSuffix,
             ],
             $this->getStub($stub)
         );
