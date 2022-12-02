@@ -2,7 +2,8 @@
 
 namespace Maarsson\Repository\Getters;
 
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
+use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -16,9 +17,9 @@ abstract class AbstractEloquentGetter
     protected Request $request;
 
     /**
-     * @var \Illuminate\Database\Eloquent\Builder
+     * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      */
-    protected Builder $builder;
+    protected EloquentBuilder|QueryBuilder $builder;
 
     /**
      * Class constructor.
@@ -33,11 +34,11 @@ abstract class AbstractEloquentGetter
     /**
      * Constructs the builder on the getter class.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder $builder
      *
      * @return self
      */
-    public function apply(Builder $builder): self
+    public function apply(EloquentBuilder|QueryBuilder $builder): self
     {
         $this->builder = $builder;
 
