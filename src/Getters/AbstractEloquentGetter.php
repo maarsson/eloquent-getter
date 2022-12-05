@@ -132,9 +132,9 @@ abstract class AbstractEloquentGetter
      * Gets the requested sorter method.
      * Request string converts to camel case.
      *
-     * @return null|\Illuminate\Database\Eloquent\Builder
+     * @return null|\Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
      */
-    protected function getSorterMethod(): ?Builder
+    protected function getSorterMethod(): null|EloquentBuilder|QueryBuilder
     {
         $method = Str::of($this->request->get('sort_by'))
             ->camel()
