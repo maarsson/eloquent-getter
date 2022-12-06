@@ -102,6 +102,7 @@ abstract class AbstractEloquentGetter
 
     /**
      * Get all the filters that can be applied.
+     * Keys with empty values will be filtered out.
      * Keys also converts to camel case.
      *
      * @return \Illuminate\Support\Collection
@@ -109,6 +110,7 @@ abstract class AbstractEloquentGetter
     protected function getFilters(): Collection
     {
         return collect($this->request->get('filter'))
+            ->filter(fn ($value, $key) => ! empty($value))
             ->mapWithKeys(fn ($value, $key) => [
                 Str::of($key)->camel()->append('Filter')->toString() => $value,
             ])
