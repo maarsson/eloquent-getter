@@ -184,7 +184,9 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
 
         $model = $this->model()->create($attributes);
 
-        event(new $this->events['WasCreated']($model, $attributes));
+        if ($model) {
+            event(new $this->events['WasCreated']($model, $attributes));
+        }
 
         return $model;
     }
@@ -200,13 +202,17 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
     {
         $model = $this->model()->find($id);
 
-        if (empty(event(new $this->events['IsDeleting']($model)))) {
-            return false;
+        if ($model) {
+            if (empty(event(new $this->events['IsDeleting']($model)))) {
+                return false;
+            }
         }
 
         $result = $model->delete();
 
-        event(new $this->events['WasDeleted']($model));
+        if ($model) {
+            event(new $this->events['WasDeleted']($model));
+        }
 
         return $result;
     }
@@ -325,13 +331,17 @@ abstract class AbstractEloquentRepository implements EloquentRepositoryInterface
     {
         $model = $this->model()->find($id);
 
-        if (empty(event(new $this->events['IsUpdating']($model, $attributes)))) {
-            return false;
+        if ($model) {
+            if (empty(event(new $this->events['IsUpdating']($model, $attributes)))) {
+                return false;
+            }
         }
 
         $result = $model->update($attributes);
 
-        event(new $this->events['WasUpdated']($model, $attributes));
+        if ($model) {
+            event(new $this->events['WasUpdated']($model, $attributes));
+        }
 
         return $result;
     }
