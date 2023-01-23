@@ -14,7 +14,7 @@ abstract class AbstractEloquentGetter
     /**
      * @var \Illuminate\Http\Request
      */
-    protected Request $request;
+    public Request $request;
 
     /**
      * @var \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder
