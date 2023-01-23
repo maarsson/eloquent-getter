@@ -29,8 +29,7 @@ trait EloquentAttributeFilterTrait
         return empty($this->withAttributes) ?
             $this->toArray()
             :
-            $this->with($this->getValidRelations())
-                ->find($this->id)
+            $this->load($this->getValidRelations())
                 ->only($this->getValidAttributes());
     }
 
