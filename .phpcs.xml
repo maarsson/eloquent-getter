@@ -49,6 +49,7 @@
         <exclude name="Squiz.Commenting.FileComment" />
         <exclude name="Squiz.Commenting.FunctionComment" />
         <exclude name="Squiz.Commenting.InlineComment" />
+        <exclude name="Squiz.Commenting.LongConditionClosingComment" />
         <exclude name="Squiz.Commenting.PostStatementComment" />
         <exclude name="Squiz.Commenting.VariableComment" />
         <exclude name="Squiz.ControlStructures.InlineIfDeclaration" />
@@ -61,6 +62,7 @@
         <exclude name="Squiz.PHP.DisallowComparisonAssignment" />
         <exclude name="Squiz.PHP.DisallowInlineIf" />
         <exclude name="Squiz.WhiteSpace.FunctionClosingBraceSpace" />
+        <exclude name="Squiz.ControlStructures" />
     </rule>
     <rule ref="Squiz.Strings.ConcatenationSpacing">
         <properties>
