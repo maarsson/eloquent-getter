@@ -161,18 +161,4 @@ trait UsesStubFunctionsTrait
 
         return $this;
     }
-
-    /**
-     * Sends output warning message if the model class is not added to the config file.
-     *
-     * @return self
-     */
-    protected function warnIfModelNotConfigured(): self
-    {
-        if (! collect(config('repository.models'))->contains($this->modelName)) {
-            $this->error('NOTICE: Do not forget to add model class `' . $this->modelName . '` to the `models` array in the config/repository.php file.');
-        }
-
-        return $this;
-    }
 }

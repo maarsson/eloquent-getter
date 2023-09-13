@@ -44,19 +44,7 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function configure(): void
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../../config/repository.php',
-            'repository'
         );
-    }
-
-    /**
-     * Register package providers.
-     *
-     * @return void
-     */
-    protected function registerProviders(): void
-    {
-        $this->app->register(EventServiceProvider::class);
     }
 
     /**

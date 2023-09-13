@@ -21,34 +21,6 @@ trait UsesFolderConfigTrait
     protected string $modelsNamespace;
 
     /**
-     * Container for the interfaces´ folder path.
-     *
-     * @var string
-     */
-    protected string $interfacesFolder;
-
-    /**
-     * Container for the interfaces´ namespace.
-     *
-     * @var string
-     */
-    protected string $interfacesNamespace;
-
-    /**
-     * Container for the repositories´ folder path.
-     *
-     * @var string
-     */
-    protected string $repositoriesFolder;
-
-    /**
-     * Container for the repositories´ namespace.
-     *
-     * @var string
-     */
-    protected string $repositoriesNamespace;
-
-    /**
      * Container for the getters´ folder path.
      *
      * @var string
@@ -63,34 +35,6 @@ trait UsesFolderConfigTrait
     protected string $gettersNamespace;
 
     /**
-     * Container for the events´ folder path.
-     *
-     * @var string
-     */
-    protected string $eventsFolder;
-
-    /**
-     * Container for the events´ namespace.
-     *
-     * @var string
-     */
-    protected string $eventsNamespace;
-
-    /**
-     * Container for the listeners´ folder path.
-     *
-     * @var string
-     */
-    protected string $listenersFolder;
-
-    /**
-     * Container for the listeners´ namespace.
-     *
-     * @var string
-     */
-    protected $listenersNamespace;
-
-    /**
      * Gets the folder path for the given type.
      *
      * @param string $type
@@ -100,7 +44,6 @@ trait UsesFolderConfigTrait
     protected function getFolder(string $type): string
     {
         if (empty($this->{$type . 'Folder'})) {
-            $this->{$type . 'Folder'} = config('repository.folders.' . $type, ucfirst($type));
             $this->{$type . 'Folder'} = $this->toPathFormat($this->{$type . 'Folder'});
         }
 
@@ -164,26 +107,6 @@ trait UsesFolderConfigTrait
     }
 
     /**
-     * Gets the interfaces folder path.
-     *
-     * @return string
-     */
-    protected function getInterfacesFolder(): string
-    {
-        return $this->getFolder('interfaces');
-    }
-
-    /**
-     * Gets the repositories folder path.
-     *
-     * @return string
-     */
-    protected function getRepositoriesFolder(): string
-    {
-        return $this->getFolder('repositories');
-    }
-
-    /**
      * Gets the getters folder path.
      *
      * @return string
@@ -191,26 +114,6 @@ trait UsesFolderConfigTrait
     protected function getGettersFolder(): string
     {
         return $this->getFolder('getters');
-    }
-
-    /**
-     * Gets the events folder path.
-     *
-     * @return string
-     */
-    protected function getEventsFolder(): string
-    {
-        return $this->getFolder('events');
-    }
-
-    /**
-     * Gets the listeners folder path.
-     *
-     * @return string
-     */
-    protected function getListenersFolder(): string
-    {
-        return $this->getFolder('listeners');
     }
 
     /**
@@ -235,48 +138,6 @@ trait UsesFolderConfigTrait
     }
 
     /**
-     * Gets the interfaces namespace.
-     *
-     * @return string
-     */
-    protected function getInterfacesNamespace(): string
-    {
-        return $this->getNamespace('interfaces');
-    }
-
-    /**
-     * Gets the interfaces namespace
-     * without trailing slash.
-     *
-     * @return string
-     */
-    protected function getInterfacesNamespaceWithoutTrailingSlash(): string
-    {
-        return $this->getNamespaceWithoutTrailingSlash('interfaces');
-    }
-
-    /**
-     * Gets the repositories namespace.
-     *
-     * @return string
-     */
-    protected function getRepositoriesNamespace(): string
-    {
-        return $this->getNamespace('repositories');
-    }
-
-    /**
-     * Gets the repositories namespace
-     * without trailing slash.
-     *
-     * @return string
-     */
-    protected function getRepositoriesNamespaceWithoutTrailingSlash(): string
-    {
-        return $this->getNamespaceWithoutTrailingSlash('repositories');
-    }
-
-    /**
      * Gets the getters namespace.
      *
      * @return string
@@ -298,48 +159,6 @@ trait UsesFolderConfigTrait
     }
 
     /**
-     * Gets the events namespace.
-     *
-     * @return string
-     */
-    protected function getEventsNamespace(): string
-    {
-        return $this->getNamespace('events');
-    }
-
-    /**
-     * Gets the events namespace
-     * without trailing slash.
-     *
-     * @return string
-     */
-    protected function getEventsNamespaceWithoutTrailingSlash(): string
-    {
-        return $this->getNamespaceWithoutTrailingSlash('events');
-    }
-
-    /**
-     * Gets the listeners namespace.
-     *
-     * @return string
-     */
-    protected function getListenersNamespace(): string
-    {
-        return $this->getNamespace('listeners');
-    }
-
-    /**
-     * Gets the listeners namespace
-     * without trailing slash.
-     *
-     * @return string
-     */
-    protected function getListenersNamespaceWithoutTrailingSlash(): string
-    {
-        return $this->getNamespaceWithoutTrailingSlash('listeners');
-    }
-
-    /**
      * Determines if the given model class exists.
      *
      * @param string $class
@@ -349,54 +168,6 @@ trait UsesFolderConfigTrait
     protected function modelExists(string $class): bool
     {
         return $this->classExists('models', $class);
-    }
-
-    /**
-     * Determines if the given interface class exists.
-     *
-     * @param string $class
-     *
-     * @return bool true if class exists, False otherwise
-     */
-    protected function interfaceExists(string $class): bool
-    {
-        return $this->classExists('interfaces', $class);
-    }
-
-    /**
-     * Determines if the given repository class exists.
-     *
-     * @param string $class
-     *
-     * @return bool true if class exists, False otherwise
-     */
-    protected function repositoryExists(string $class): bool
-    {
-        return $this->classExists('repositories', $class);
-    }
-
-    /**
-     * Determines if the given event class exists.
-     *
-     * @param string $class
-     *
-     * @return bool true if class exists, False otherwise
-     */
-    protected function eventExists(string $class): bool
-    {
-        return $this->classExists('events', $class);
-    }
-
-    /**
-     * Determines if the given listener class exists.
-     *
-     * @param string $class
-     *
-     * @return bool true if class exists, False otherwise
-     */
-    protected function listenerExists(string $class): bool
-    {
-        return $this->classExists('listeners', $class);
     }
 
     /**
