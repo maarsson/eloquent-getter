@@ -35,8 +35,7 @@ class MakeGetterCommand extends Command
     {
         $this->setModelName()
             ->makeGetter()
-            ->warnIfModelNotExists()
-            ->warnIfModelNotConfigured();
+            ->warnIfModelNotExists();
     }
 
     /**
