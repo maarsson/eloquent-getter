@@ -39,7 +39,7 @@ class MakeGetterCommand extends Command
     }
 
     /**
-     * Creates a repository interface.
+     * Creates a getter class.
      *
      * @return self
      */
