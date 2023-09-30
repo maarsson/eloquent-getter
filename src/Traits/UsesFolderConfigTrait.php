@@ -44,6 +44,7 @@ trait UsesFolderConfigTrait
     protected function getFolder(string $type): string
     {
         if (empty($this->{$type . 'Folder'})) {
+            $this->{$type . 'Folder'} = config('eloquent-getter.folders.' . $type, ucfirst($type));
             $this->{$type . 'Folder'} = $this->toPathFormat($this->{$type . 'Folder'});
         }
 
