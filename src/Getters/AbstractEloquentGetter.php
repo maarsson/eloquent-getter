@@ -1,6 +1,6 @@
 <?php
 
-namespace Maarsson\Repository\Getters;
+namespace Maarsson\EloquentGetter\Getters;
 
 use Illuminate\Database\Eloquent\Builder as EloquentBuilder;
 use Illuminate\Database\Query\Builder as QueryBuilder;

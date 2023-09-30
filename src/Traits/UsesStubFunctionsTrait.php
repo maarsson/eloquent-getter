@@ -1,6 +1,6 @@
 <?php
 
-namespace Maarsson\Repository\Traits;
+namespace Maarsson\EloquentGetter\Traits;
 
 use Illuminate\Support\Facades\File;
 

@@ -3,7 +3,7 @@
 namespace {{gettersNamespace}};
 
 use Illuminate\Database\Eloquent\Builder;
-use Maarsson\Repository\Getters\AbstractEloquentGetter;
+use Maarsson\EloquentGetter\Getters\AbstractEloquentGetter;
 
 class {{modelName}}Getter extends AbstractEloquentGetter
 {

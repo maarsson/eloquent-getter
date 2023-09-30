@@ -1,9 +1,9 @@
 <?php
 
-namespace Maarsson\Repository\Traits;
+namespace Maarsson\EloquentGetter\Traits;
 
 use Illuminate\Support\Str;
-use Maarsson\Repository\Getters\AbstractEloquentGetter;
+use Maarsson\EloquentGetter\Getters\AbstractEloquentGetter;
 
 trait GetterableTrait
 {
@@ -37,9 +37,9 @@ trait GetterableTrait
     /**
      * Scope a query to apply given filter.
      *
-     * @param \Maarsson\Repository\Filters\AbstractEloquentGetter $filter
+     * @param \Maarsson\EloquentGetter\Filters\AbstractEloquentGetter $filter
      *
-     * @return \Maarsson\Repository\Filters\AbstractEloquentGetter
+     * @return \Maarsson\EloquentGetter\Filters\AbstractEloquentGetter
      */
     public function filter(?AbstractEloquentGetter $getter = null): AbstractEloquentGetter
     {
@@ -49,9 +49,9 @@ trait GetterableTrait
     /**
      * Scope a query to apply given sorter.
      *
-     * @param \Maarsson\Repository\Filters\AbstractEloquentGetter $filter
+     * @param \Maarsson\EloquentGetter\Filters\AbstractEloquentGetter $filter
      *
-     * @return \Maarsson\Repository\Filters\AbstractEloquentGetter
+     * @return \Maarsson\EloquentGetter\Filters\AbstractEloquentGetter
      */
     public function order(?AbstractEloquentGetter $getter = null): AbstractEloquentGetter
     {

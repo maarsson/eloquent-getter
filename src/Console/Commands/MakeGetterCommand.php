@@ -1,11 +1,11 @@
 <?php
 
-namespace Maarsson\Repository\Console\Commands;
+namespace Maarsson\EloquentGetter\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
-use Maarsson\Repository\Traits\UsesFolderConfigTrait;
-use Maarsson\Repository\Traits\UsesStubFunctionsTrait;
+use Maarsson\EloquentGetter\Traits\UsesFolderConfigTrait;
+use Maarsson\EloquentGetter\Traits\UsesStubFunctionsTrait;
 
 class MakeGetterCommand extends Command
 {

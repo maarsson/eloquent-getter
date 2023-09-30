@@ -1,6 +1,6 @@
 {
-    "name": "maarsson/laravel-repository",
-    "description": "Complete repository pattern for Laravel",
+    "name": "maarsson/eloquent-getter",
+    "description": "An Eloquent getter/filter/sorter pattern for Laravel",
     "type": "package",
     "license": "MIT",
     "authors": [
@@ -15,13 +15,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Maarsson\\Repository\\": "src"
+            "Maarsson\\EloquentGetter\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Maarsson\\Repository\\Providers\\RepositoryServiceProvider"
+                "Maarsson\\EloquentGetter\\Providers\\EloquentGetterServiceProvider"
             ]
         }
     }
