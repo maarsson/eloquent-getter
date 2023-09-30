@@ -4,8 +4,6 @@ namespace Maarsson\EloquentGetter\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Maarsson\EloquentGetter\Console\Commands\MakeGetterCommand;
-use Maarsson\EloquentGetter\Interfaces\EloquentRepositoryInterface;
-use Maarsson\EloquentGetter\Repositories\AbstractEloquentRepository;
 use Maarsson\EloquentGetter\Traits\UsesFolderConfigTrait;
 
 class RepositoryServiceProvider extends ServiceProvider
