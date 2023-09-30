@@ -74,7 +74,7 @@ trait UsesFolderConfigTrait
     protected function getNamespaceWithoutTrailingSlash(string $type): string
     {
         if (empty($this->{$type . 'Namespace'})) {
-            $this->{$type . 'Namespace'} = config('repository.folders.' . $type, ucfirst($type));
+            $this->{$type . 'Namespace'} = config('eloquent-getter.folders.' . $type, ucfirst($type));
             $this->{$type . 'Namespace'} = $this->toNamespaceFormat($this->{$type . 'Namespace'});
             $this->{$type . 'Namespace'} = 'App\\' . $this->{$type . 'Namespace'};
         }
