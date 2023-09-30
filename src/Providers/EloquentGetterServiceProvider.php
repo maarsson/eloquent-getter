@@ -6,7 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Maarsson\EloquentGetter\Console\Commands\MakeGetterCommand;
 use Maarsson\EloquentGetter\Traits\UsesFolderConfigTrait;
 
-class RepositoryServiceProvider extends ServiceProvider
+class EloquentGetterServiceProvider extends ServiceProvider
 {
     use UsesFolderConfigTrait;
 
