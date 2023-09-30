@@ -44,6 +44,8 @@ class RepositoryServiceProvider extends ServiceProvider
     protected function configure(): void
     {
         $this->mergeConfigFrom(
+            __DIR__ . '/../../config/eloquent-getter.php',
+            'eloquent-getter'
         );
     }
 
