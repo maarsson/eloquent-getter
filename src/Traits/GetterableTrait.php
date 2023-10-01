@@ -43,7 +43,7 @@ trait GetterableTrait
      */
     public function filter(?AbstractEloquentGetter $getter = null): AbstractEloquentGetter
     {
-        return $getter->apply($this->model()->query())->filter();
+        return $getter->apply($this->query())->filter();
     }
 
     /**
@@ -55,7 +55,7 @@ trait GetterableTrait
      */
     public function order(?AbstractEloquentGetter $getter = null): AbstractEloquentGetter
     {
-        return $getter->apply($this->model()->query())->order();
+        return $getter->apply($this->query())->order();
     }
 
     /**
