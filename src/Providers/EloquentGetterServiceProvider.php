@@ -28,7 +28,6 @@ class EloquentGetterServiceProvider extends ServiceProvider
     public function register()
     {
         $this->configure();
-        $this->registerBindings();
         $this->registerCommands();
     }
 
